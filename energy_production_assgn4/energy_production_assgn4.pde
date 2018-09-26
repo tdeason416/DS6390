@@ -1,6 +1,12 @@
-import java.util.Map;
-
-//Table table;
+// Define Orb Colors
+HashMap colormap = new HashMap();
+colormap.put("coal", "020002");
+colormap.put("geothermal", "623E10");
+colormap.put("hydroelectric", "815714");
+colormap.put("natural_gas", "8B5B93");
+colormap.put("nuclear", "66F54D");
+colormap.put("solar", "F1F12D");
+colormap.put("wind", "67D4E8");
 
 
 void setup() {
