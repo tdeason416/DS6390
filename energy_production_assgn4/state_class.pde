@@ -43,16 +43,30 @@ class State{
    //     ellipse(this.center_x, this.center_y, 2* raidus, 2* radius);
    // }
    
-     float _checkArea(float alpha){
-         d1 = this.radius
-         for (int i = 0; i < this.sources.size() - 1; i += 1){
-             d2 = max(this.sources.get(i), this.sources.get(i + 1))
-             alpha += 2 * atan(.5 * d1 / (.5 * d1 + .5 * d1))
-             }
-         d2 = this.sources.get(this.sources.size() - 1)
-         alpha += atan(.5 * d1 / (.5*this.radius + .5 * d1))
-         return alpha
-         }
+   float _checkArea(float alpha){
+       float r1 = this.diameter / 2;
+       float r2;
+       for (int i = 0; i < this.sources.size() - 1; i += 1){
+           this.angles.set(i, alpha)
+           r2 = max(this.sources.get(i), this.sources.get(i + 1)) / 2
+           alpha += 2 * atan(d2 / (r1 + r2))
+           }
+       d2 = this.sources.get(this.sources.size() - 1)
+       alpha += atan(r2 / (r1 + r2))
+       return alpha
+       }
+       
+   float _angleBool(float theta, int idx){
+       float r2 = this.angles.get(i) / 2;
+       float r1 = this.diameter
+       float angleDelta = atan(r2 / (r1 + r2));
+       if(theta - angles.get(1) < angleDelta){
+           return true;
+           }
+       else{
+           return false;
+           }
+       }
    
    void setDiameter(){
        if(this._check_area(0) < 2 * PI * .92){
@@ -65,6 +79,15 @@ class State{
            this.setDiameter();
            }
        }
+    
+    float checkDistance(float theta){
+        for(int i = 0; i < this.sources.size(); i++){
+            if(_angleBool(){
+                return this.diameter / 2 + this.sources.get(i);
+                }
+             }
+         return this.diameter / 2 + this.sources.min()
+        }
  
     void placeResourceOrbs(){
         float angle_0 =  0;
@@ -75,16 +98,3 @@ class State{
         }
     }
 }
-   
-    
-    //void load_year(String year){
-    
-    //    Table this_year = loadTable(year + ".csv", "header");
-        
-    //    HashMap<String,State> states = new HashMap<String, State>();
-      
-    //    for (TableRow row : this_year.rows()){
-    //        states.put(row.getString("state"), new State(row));
-    //        }
-    //  }
-    //}

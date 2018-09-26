@@ -1,5 +1,6 @@
 // Define Orb Colors
-HashMap colormap = new HashMap();
+//HashMap colormap = new HashMap();
+HashMap<String,String> colormap = new HashMap<String, String>()
 colormap.put("coal", "020002");
 colormap.put("geothermal", "623E10");
 colormap.put("hydroelectric", "815714");
