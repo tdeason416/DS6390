@@ -5,11 +5,14 @@ HashMap<String, String> colorMap = new HashMap<String, String>();
 HashMap<String, State> thisYear = new HashMap<String, State>();
 StringList stateNames = new StringList();
 State IState;
+
+
 int year = 1990;
 int max_year = 2017;
 int current_state = 51;
+int sleep_timer = 0;
 float ploc_x = 0;
-float ploc_y = 0;
+float ploc_y = 720;
 float pdia = 0;
 float ndia;
 float max_volume = 8187212010.0;
@@ -17,7 +20,7 @@ float scaleFactor = 2073600.0 / (max_volume * 4.0/3.0);
 
 
 void setup() {
-  size(1920, 1080);
+  size(1280, 720);
 
   //DEFINE ORB COLORS
   colorMap.put("coal", "020002");
@@ -87,45 +90,41 @@ void setup() {
 
 void draw(){
     if(current_state == 51){
-        background(190);
-        thisYear = load_year(year, stateNames, colorMap, scaleFactor);
-        current_state = 0;
-        ploc_x = 0;
-        ploc_y = 0;
-        year += 1;
-    }
-    IState = thisYear.get(stateNames.get(current_state));
-    ndia = IState.diameter;
-    ploc_x = ploc_x + pdia + ndia;
-    if(ploc_x > width){
-        ploc_y += ndia;
-        ploc_x = ndia; 
+         if(sleep_timer < 900){
+            sleep_timer += 1;
         }
+        else{
+          background(190);
+          text(str(year), width/2, 10);
+          thisYear = load_year(year, stateNames, colorMap, scaleFactor);
+          sleep_timer = 0;
+          current_state = 0;
+          ploc_x = 0;
+          ploc_y = height;
+          year += 1;
+          }
+    }
+    else{
+    IState = thisYear.get(stateNames.get(current_state));
+    //println(IState.diameter);
+    if(ploc_x + .5 * IState.diameter > width){
+        ploc_y -= 100;
+        ploc_x = IState.diameter;
+        }
+    IState.center_x = ploc_x;
+    IState.center_y = ploc_y;
     
-    //HashMap<String, Integer> distances = new HashMap<String, Integer>();
-    //for (int i; i > placed_x){
-    //    distances.put(placed_name.get(i), sqrt(pow(ploc_x - placed_x.get(i), 2);
-    //    }
-    //thisYear.get(stateNames.get(current_state)).drawPie(ploc_x + pdia + ndia, ploc_y + pdia + ndia);
-    IState.drawPie(width/2, height/2);
-
+    checkInterferance(IState, thisYear, stateNames, current_state);
+    
+    //IState.drawPie(ploc_x + .5 * IState.diameter, ploc_y - .5* IState.diameter);
+    IState.drawPie();
+    
+    //println(str(ploc_x + .5 * IState.diameter)+ "," + str(ploc_y - .5* IState.diameter));
+    println(str(IState.center_x) + " -- " + str(IState.center_y));
+    
+    ploc_x += .5*IState.diameter;
+    
     
     current_state += 1;
-    //println(colormap);
-    //WA = new State(loadTable(year + "_WA.csv", "header").getRow(0), 1);
-    //println(WA.sourcenames);
-//  table = loadTable("year.csv", "header");
-
-//  println(table.getRowCount() + " total rows in table"); 
-  
-  
-//  for (TableRow row : table.rows()) {
-    
-//    String state = row.getString("state");
-//    float coal = row.getFloat("coal");
-//    float natural_gas = row.getFloat("natural_gas");
-    
-//    println(state + " (" + coal + ") has an ID of " + natural_gas);
-//  } 
-//}
+    }
 }

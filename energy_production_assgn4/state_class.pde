@@ -27,7 +27,7 @@ class State{
         this.sourcenames.append("wind");
         //this.sourcenames.shuffle();
         for (int i = 0; i < this.sourcenames.size(); i+=1){
-            this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i)) / pow(10,4)));
+            this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i)) / pow(10,5)));
             this.angles.append(0.0);
             this.colors.append(colorMap.get(this.sourcenames.get(i)).toString());
             }
@@ -36,7 +36,34 @@ class State{
         this.center_y = 0;
         this.setAngles();
     }
+       
+   void setAngles(){
+       this.diameter = sqrt(this.sources.sum());
+       float anglei = 0;
+       for (int i= 0; i < this.sources.size(); i++){
+           anglei += this.sources.get(i) / this.sources.sum() * 2 * PI;
+           this.angles.set(i, anglei);
+           }
+       }
    
+   void drawPie(){
+        //this.center_x = center_x;
+        //this.center_y = center_y;
+        float lastAngle = 0;
+        for (int i = 0; i < this.angles.size(); i++){
+            noStroke();
+            //fill(unhex(this.colors.get(i)));
+            fill(0, 0, 0);
+            arc(this.center_x, this.center_y, this.diameter, this.diameter, lastAngle, lastAngle + (this.angles.get(i)));
+            lastAngle += this.angles.get(i);
+            }
+        noStroke();
+        ellipse(center_x, center_y, this.diameter, this.diameter);
+        fill(0, 0, 0);
+        text(this.name, this.center_x, this.center_y);  
+        }
+}
+
    // void place_center(float x, float y, float scale_factor){
    //     this.center_x = x * scale_factor;
    //     this.center_y = y * scale_factor;
@@ -68,32 +95,6 @@ class State{
    //        return false;
    //        }
    //    }
-       
-   void setAngles(){
-       this.diameter = sqrt(this.sources.sum());
-       float anglei = 0;
-       for (int i= 0; i < this.sources.size(); i++){
-           anglei += this.sources.get(i) / this.sources.sum() * 2 * PI;
-           this.angles.set(i, anglei);
-           }
-       }
-   
-   void drawPie(float center_x,float center_y){
-        this.center_x = center_x;
-        this.center_y = center_y;
-        float lastAngle = 0;
-        for (int i = 0; i < this.angles.size(); i++){
-            noStroke();
-            fill(unhex(this.colors.get(i)));
-            arc(this.center_x, this.center_y, this.diameter, this.diameter, lastAngle, lastAngle + (this.angles.get(i)));
-            lastAngle += this.angles.get(i);
-            }
-        noStroke();
-        ellipse(center_x, center_y, this.diameter, this.diameter);
-        fill(0, 0, 0);
-        text(this.name, this.center_x, this.center_y);  
-        }
-       
    
    //void setDiameter(){
    //    if(this._checkArea(0, this.diameter) > 2 * PI){
@@ -124,4 +125,3 @@ class State{
     //        ellipse(center x
         //}
     //}
-}
