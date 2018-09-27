@@ -4,10 +4,14 @@ import java.util.Map;
 HashMap<String, String> colorMap = new HashMap<String, String>();
 HashMap<String, State> thisYear = new HashMap<String, State>();
 StringList stateNames = new StringList();
-
+State IState;
 int year = 1990;
 int max_year = 2017;
 int current_state = 51;
+float ploc_x = 0;
+float ploc_y = 0;
+float pdia = 0;
+float ndia;
 float max_volume = 8187212010.0;
 float scaleFactor = 2073600.0 / (max_volume * 4.0/3.0); 
 
@@ -83,12 +87,29 @@ void setup() {
 
 void draw(){
     if(current_state == 51){
+        background(190);
         thisYear = load_year(year, stateNames, colorMap, scaleFactor);
         current_state = 0;
+        ploc_x = 0;
+        ploc_y = 0;
         year += 1;
     }
+    IState = thisYear.get(stateNames.get(current_state));
+    ndia = IState.diameter;
+    ploc_x = ploc_x + pdia + ndia;
+    if(ploc_x > width){
+        ploc_y += ndia;
+        ploc_x = ndia; 
+        }
     
-    println(thisYear.get(stateNames.get(current_state)).sourcenames);
+    //HashMap<String, Integer> distances = new HashMap<String, Integer>();
+    //for (int i; i > placed_x){
+    //    distances.put(placed_name.get(i), sqrt(pow(ploc_x - placed_x.get(i), 2);
+    //    }
+    //thisYear.get(stateNames.get(current_state)).drawPie(ploc_x + pdia + ndia, ploc_y + pdia + ndia);
+    IState.drawPie(width/2, height/2);
+
+    
     current_state += 1;
     //println(colormap);
     //WA = new State(loadTable(year + "_WA.csv", "header").getRow(0), 1);
