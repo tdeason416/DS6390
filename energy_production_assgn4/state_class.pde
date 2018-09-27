@@ -1,17 +1,21 @@
 class State{
 //Defines Parameters needes to define the energy generation of a state
-    HashMap colormap;
+    //HashMap colormap;
     String name;
     float total;
-    StringList sourcenames;
-    StringList colors;
-    FloatList sources;
-    FloatList angles;
+    //ArrayList<String> sourcenames = new ArrayList<String>();
+    //ArrayList<String> colors = new ArrayList<String>();
+
+    StringList sourcenames = new StringList();
+    StringList colors = new StringList();
+    FloatList sources = new FloatList();
+    FloatList angles = new FloatList();
+    float increment;
     float center_x;
     float center_y;
     float diameter;
     
-    State(TableRow row, HashMap colormap, float scale_factor){
+    State(TableRow row, HashMap colormap, float scaleFactor){
         this.name = row.getString("state");
         this.total = row.getFloat("total");
         this.sourcenames.append("coal");
@@ -22,17 +26,16 @@ class State{
         this.sourcenames.append("biomass");
         this.sourcenames.append("solar");
         this.sourcenames.append("wind");
-        this.sourcenames.shuffle();
+        //this.sourcenames.shuffle();
         for (int i = 0; i < this.sourcenames.size(); i+=1){
-            this.sources.append(row.getInt(this.sourcenames.get(i) * scale_factor));
+            this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i))) * scaleFactor);
             this.angles.append(0.0);
             }
-        this.colormap = colormap;
+        //this.colormap = colormap;
         this.center_x = 0;
         this.center_y = 0;
-        this.diameter = 3;
-        this.increment = 1;
-        this.diameter = 3;
+        this.diameter = 1;
+        this.increment = .01;
         this.setDiameter();
     }
    
@@ -43,22 +46,23 @@ class State{
    //     ellipse(this.center_x, this.center_y, 2* raidus, 2* radius);
    // }
    
-   float _checkArea(float alpha){
-       float r1 = this.diameter / 2;
+   float _checkArea(float alpha, float diameter){
+       float r1 = diameter / 2;
        float r2;
        for (int i = 0; i < this.sources.size() - 1; i += 1){
-           this.angles.set(i, alpha)
-           r2 = max(this.sources.get(i), this.sources.get(i + 1)) / 2
-           alpha += 2 * atan(d2 / (r1 + r2))
+           this.angles.set(i, alpha);
+           r2 = max(this.sources.get(i), this.sources.get(i + 1)) / 2;
+           alpha += 2 * atan(r2 / (r1 + r2));
            }
-       d2 = this.sources.get(this.sources.size() - 1)
-       alpha += atan(r2 / (r1 + r2))
-       return alpha
+       r2 = this.sources.get(this.sources.size() - 1);
+       alpha += atan(r2 / (r1 + r2));
+       //println(alpha);
+       return alpha;
        }
        
-   float _angleBool(float theta, int idx){
-       float r2 = this.angles.get(i) / 2;
-       float r1 = this.diameter
+   boolean _angleBool(float theta, int idx){
+       float r2 = this.angles.get(idx) / 2;
+       float r1 = this.diameter;
        float angleDelta = atan(r2 / (r1 + r2));
        if(theta - angles.get(1) < angleDelta){
            return true;
@@ -69,12 +73,14 @@ class State{
        }
    
    void setDiameter(){
-       if(this._check_area(0) < 2 * PI * .92){
+       if(this._checkArea(0, this.diameter) > 2 * PI){
+         println(this.diameter);
          this.diameter += this.increment;
          this.setDiameter();
            }
-       else if(this._check_area(0) > 2 * PI){
-           this.increment /= 1.25;
+       else if(this._checkArea(0, this.diameter) < 2 * PI * .75){
+           println(this.diameter);
+           this.increment /= 1.005;
            this.diameter -= this.increment;
            this.setDiameter();
            }
@@ -82,19 +88,19 @@ class State{
     
     float checkDistance(float theta){
         for(int i = 0; i < this.sources.size(); i++){
-            if(_angleBool(){
+            if(this._angleBool(theta, i)){
                 return this.diameter / 2 + this.sources.get(i);
                 }
              }
-         return this.diameter / 2 + this.sources.min()
+         return this.diameter / 2 + this.sources.min();
         }
  
-    void placeResourceOrbs(){
-        float angle_0 =  0;
-        for (int i = 0; i < this.sources.size(); i++){
-            float half_angle = atan( 0.5* sources.get(i)
-            angle_1 = angle_0 + atan(this.sources.get(i)
-            ellipse(center x
-        }
-    }
+    //void placeResourceOrbs(){
+    //    float angle_0 =  0;
+    //    for (int i = 0; i < this.sources.size(); i++){
+    //        float half_angle = atan( 0.5* sources.get(i);
+    //        angle_1 = angle_0 + atan(this.sources.get(i);
+    //        ellipse(center x
+        //}
+    //}
 }

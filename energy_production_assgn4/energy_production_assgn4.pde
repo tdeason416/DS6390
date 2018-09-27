@@ -1,55 +1,110 @@
-// Define Orb Colors
-//HashMap colormap = new HashMap();
-HashMap<String,String> colormap = new HashMap<String, String>()
-colormap.put("coal", "020002");
-colormap.put("geothermal", "623E10");
-colormap.put("hydroelectric", "815714");
-colormap.put("natural_gas", "8B5B93");
-colormap.put("nuclear", "66F54D");
-colormap.put("solar", "F1F12D");
-colormap.put("wind", "67D4E8");
+import java.util.Map;
+
+
+HashMap<String, String> colorMap = new HashMap<String, String>();
+HashMap<String, State> thisYear = new HashMap<String, State>();
+StringList stateNames = new StringList();
+
+int year = 1990;
+int max_year = 2017;
+int current_state = 51;
+float max_volume = 8187212010.0;
+float scaleFactor = 2073600.0 / (max_volume * 4.0/3.0); 
 
 
 void setup() {
-  
-  
-  
+  size(1920, 1080);
 
-  // Note the HashMap's "key" is a String and "value" is an Integer
-  HashMap<String,Integer> hm = new HashMap<String,Integer>();
+  //DEFINE ORB COLORS
+  colorMap.put("coal", "020002");
+  colorMap.put("geothermal", "623E10");
+  colorMap.put("hydroelectric", "815714");
+  colorMap.put("natural_gas", "8B5B93");
+  colorMap.put("nuclear", "66F54D");
+  colorMap.put("biomass", "1E6323");
+  colorMap.put("solar", "F1F12D");
+  colorMap.put("wind", "67D4E8");
   
-  // Putting key-value pairs in the HashMap
-  hm.put("Ava", 1);
-  hm.put("Cait", 35);
-  hm.put("Casey", 36);
+  //ADD STATE NAMES
+  stateNames.append("HI");
+  stateNames.append("AZ");
+  stateNames.append("NM");
+  stateNames.append("TX");
+  stateNames.append("LA");
+  stateNames.append("MI");
+  stateNames.append("AL");
+  stateNames.append("FL");
+  stateNames.append("GA");
+  stateNames.append("FL");
+  stateNames.append("CA");
+  stateNames.append("NV");
+  stateNames.append("UT");
+  stateNames.append("CO");
+  stateNames.append("KS");
+  stateNames.append("OK");
+  stateNames.append("AR");
+  stateNames.append("TN");
+  stateNames.append("NC");
+  stateNames.append("NE");
+  stateNames.append("MI");
+  stateNames.append("KY");
+  stateNames.append("WV");
+  stateNames.append("VA");
+  stateNames.append("OR");
+  stateNames.append("ID");
+  stateNames.append("WY");
+  stateNames.append("SD");
+  stateNames.append("IA");
+  stateNames.append("IL");
+  stateNames.append("IN");
+  stateNames.append("OH");
+  stateNames.append("PA");
+  stateNames.append("DC");
+  stateNames.append("MD");
+  stateNames.append("DE");
+  stateNames.append("WA");
+  stateNames.append("MT");
+  stateNames.append("ND");
+  stateNames.append("MI");
+  stateNames.append("WI");
+  stateNames.append("MI");
+  stateNames.append("NY");
+  stateNames.append("NJ");
+  stateNames.append("CT");
+  stateNames.append("RI");
+  stateNames.append("AK");
+  stateNames.append("VT");
+  stateNames.append("NH");
+  stateNames.append("MS");
+  stateNames.append("ME"); 
+ 
   
-  // Using an enhanced loop to iterate over each entry
-  for (Map.Entry me : hm.entrySet()) {
-    print(me.getKey() + " is ");
-    println(me.getValue());
-  }
-    
-  
-  //table = loadTable("1990.csv", "header");
+}
 
-  //println(table.getRowCount() + " total rows in table"); 
+void draw(){
+    if(current_state == 51){
+        thisYear = load_year(year, stateNames, colorMap, scaleFactor);
+        current_state = 0;
+        year += 1;
+    }
+    
+    println(thisYear.get(stateNames.get(current_state)).sourcenames);
+    current_state += 1;
+    //println(colormap);
+    //WA = new State(loadTable(year + "_WA.csv", "header").getRow(0), 1);
+    //println(WA.sourcenames);
+//  table = loadTable("year.csv", "header");
 
-  //for (TableRow row : table.rows()) {
-    
-  //  String state = row.getString("state");
-  //  int year = row.getInt("year");
-  //  int coal = row.getInt("coal");
-  //  int geothermal = row.getInt("geothermal");
-  //  int hydroelectric = row.getInt("hydroelectric");
-  //  int natural_gas = row.getInt("natural_gas");
-  //  int nuclear = row.getInt("nuclear");
-  //  int biomass = row.getInt("biomass");
-  //  int solar = row.getInt("solar");
-  //  int wind = row.getInt("wind");
-  //  int total = row.getInt("total");
-    
-    
-    //println(state + " (" + coal + ") has a total power usage of " + total);
-  //}
+//  println(table.getRowCount() + " total rows in table"); 
   
+  
+//  for (TableRow row : table.rows()) {
+    
+//    String state = row.getString("state");
+//    float coal = row.getFloat("coal");
+//    float natural_gas = row.getFloat("natural_gas");
+    
+//    println(state + " (" + coal + ") has an ID of " + natural_gas);
+//  } 
+//}
 }
