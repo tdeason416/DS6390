@@ -27,7 +27,7 @@ class State{
         this.sourcenames.append("wind");
         //this.sourcenames.shuffle();
         for (int i = 0; i < this.sourcenames.size(); i+=1){
-            this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i)) / pow(10,5)));
+            this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i)) * scaleFactor));
             this.angles.append(0.0);
             this.colors.append(colorMap.get(this.sourcenames.get(i)).toString());
             }
@@ -38,7 +38,7 @@ class State{
     }
        
    void setAngles(){
-       this.diameter = sqrt(this.sources.sum());
+       this.diameter = sqrt(this.total * scaleFactor) * 2;
        float anglei = 0;
        for (int i= 0; i < this.sources.size(); i++){
            anglei += this.sources.get(i) / this.sources.sum() * 2 * PI;
@@ -53,12 +53,12 @@ class State{
         for (int i = 0; i < this.angles.size(); i++){
             noStroke();
             //fill(unhex(this.colors.get(i)));
-            fill(0, 0, 0);
-            arc(this.center_x, this.center_y, this.diameter, this.diameter, lastAngle, lastAngle + (this.angles.get(i)));
+            fill(120);
+            arc(this.center_x, this.center_y, this.diameter / 2, this.diameter /2, lastAngle, lastAngle + (this.angles.get(i)));
             lastAngle += this.angles.get(i);
             }
         noStroke();
-        ellipse(center_x, center_y, this.diameter, this.diameter);
+        ellipse(center_x, center_y, this.diameter / 2, this.diameter / 2);
         fill(0, 0, 0);
         text(this.name, this.center_x, this.center_y);  
         }

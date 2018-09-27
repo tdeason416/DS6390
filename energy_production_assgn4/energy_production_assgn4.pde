@@ -16,7 +16,7 @@ float ploc_y = 720;
 float pdia = 0;
 float ndia;
 float max_volume = 8187212010.0;
-float scaleFactor = 2073600.0 / (max_volume * 4.0/3.0); 
+float scaleFactor = 921600 / (max_volume); 
 
 
 void setup() {
@@ -100,7 +100,7 @@ void draw(){
           sleep_timer = 0;
           current_state = 0;
           ploc_x = 0;
-          ploc_y = height;
+          ploc_y = height - 20;
           year += 1;
           }
     }
@@ -108,21 +108,19 @@ void draw(){
     IState = thisYear.get(stateNames.get(current_state));
     //println(IState.diameter);
     if(ploc_x + .5 * IState.diameter > width){
-        ploc_y -= 100;
-        ploc_x = IState.diameter;
+        ploc_y -= 50;
+        ploc_x = IState.diameter + 5;
         }
     IState.center_x = ploc_x;
     IState.center_y = ploc_y;
-    
     checkInterferance(IState, thisYear, stateNames, current_state);
-    
-    //IState.drawPie(ploc_x + .5 * IState.diameter, ploc_y - .5* IState.diameter);
     IState.drawPie();
     
-    //println(str(ploc_x + .5 * IState.diameter)+ "," + str(ploc_y - .5* IState.diameter));
-    println(str(IState.center_x) + " -- " + str(IState.center_y));
     
-    ploc_x += .5*IState.diameter;
+    //println(str(ploc_x + .5 * IState.diameter)+ "," + str(ploc_y - .5* IState.diameter));
+    //println(str(IState.center_x) + " -- " + str(IState.center_y));
+    
+    ploc_x += 20;
     
     
     current_state += 1;
