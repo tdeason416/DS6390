@@ -29,8 +29,7 @@ class State{
         for (int i = 0; i < this.sourcenames.size(); i+=1){
             this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i)) / pow(10,4)));
             this.angles.append(0.0);
-            String value = colorMap.get(this.sourcenames.get(i)).toString();
-            this.colors.append(value);
+            this.colors.append(colorMap.get(this.sourcenames.get(i)).toString());
             }
         //this.colormap = colormap;
         this.center_x = 0;
@@ -44,8 +43,6 @@ class State{
    //     this.radius = 5.0 * scale_factor;
    //     ellipse(this.center_x, this.center_y, 2* raidus, 2* radius);
    // }
-   
-   
    
    //float _checkArea(float alpha, float diameter){
    //    float r1 = diameter / 2;
@@ -76,7 +73,7 @@ class State{
        this.diameter = sqrt(this.sources.sum());
        float anglei = 0;
        for (int i= 0; i < this.sources.size(); i++){
-           anglei += this.sources.get(i) / this.sources.sum();
+           anglei += this.sources.get(i) / this.sources.sum() * 2 * PI;
            this.angles.set(i, anglei);
            }
        }
@@ -91,8 +88,12 @@ class State{
             arc(this.center_x, this.center_y, this.diameter, this.diameter, lastAngle, lastAngle + (this.angles.get(i)));
             lastAngle += this.angles.get(i);
             }
-        fill(0, 0, 0);
-        text(this.name, this.center_x, this.center_y);  
+        noStroke();
+        fill(unhex(this.colors.get(1)));  
+        println(this.diameter);
+        ellipse(center_x, center_y, this.diameter, this.diameter);
+        //fill(0, 0, 0);
+        //text(this.name, this.center_x, this.center_y);  
         }
        
    
