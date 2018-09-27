@@ -13,6 +13,7 @@ class State{
     float center_x;
     float center_y;
     float diameter;
+    float anglen;
     
     State(TableRow row, HashMap colorMap, float scaleFactor){
         this.name = row.getString("state");
@@ -41,7 +42,9 @@ class State{
        this.diameter = sqrt(this.total * scaleFactor) * 2;
        float anglei = 0;
        for (int i= 0; i < this.sources.size(); i++){
-           anglei += this.sources.get(i) / this.sources.sum() * 2 * PI;
+           anglen = (this.sources.get(i) / this.sources.sum());
+           println(this.sourcenames.get(i) + " : " + str(anglen / 2 / PI));
+           anglei += anglen; 
            this.angles.set(i, anglei);
            }
        }
@@ -49,16 +52,19 @@ class State{
    void drawPie(){
         //this.center_x = center_x;
         //this.center_y = center_y;
+        println("\n\n" + this.name);
         float lastAngle = 0;
         for (int i = 0; i < this.angles.size(); i++){
             noStroke();
-            //fill(unhex(this.colors.get(i)));
-            fill(120);
-            arc(this.center_x, this.center_y, this.diameter / 2, this.diameter /2, lastAngle, lastAngle + (this.angles.get(i)));
+            fill(unhex(this.colors.get(i)));
+            //fill(this.angles.get(i) * 255);
+            println(this.sourcenames.get(i) + "__" + str(this.angles.get(i)));
+            arc(this.center_x, this.center_y, this.diameter / 2, this.diameter /2, 
+                        lastAngle * 2*PI, lastAngle + (this.angles.get(i)) * 2*PI);
             lastAngle += this.angles.get(i);
             }
         noStroke();
-        ellipse(center_x, center_y, this.diameter / 2, this.diameter / 2);
+        //ellipse(center_x, center_y, this.diameter / 2, this.diameter / 2);
         fill(0, 0, 0);
         text(this.name, this.center_x, this.center_y);  
         }

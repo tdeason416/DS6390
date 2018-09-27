@@ -22,7 +22,6 @@ void checkInterferance(State nextState, HashMap<String, State> stateMap, StringL
         c0_y = r0 + random(0, r0 * 2); 
     }
     while(i < latest){
-        //println(i);
         //Load ith state
         cN_x = stateMap.get(stateNames.get(i)).center_x;
         cN_y = stateMap.get(stateNames.get(i)).center_y;

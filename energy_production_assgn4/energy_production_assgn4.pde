@@ -90,7 +90,7 @@ void setup() {
 
 void draw(){
     if(current_state == 51){
-         if(sleep_timer < 900){
+         if(sleep_timer < 300){
             sleep_timer += 1;
         }
         else{
@@ -107,11 +107,9 @@ void draw(){
     else{
     IState = thisYear.get(stateNames.get(current_state));
     if(ploc_x + .5 * IState.diameter > width){
-        println("poop");
         ploc_y -= 100;
         ploc_x = IState.diameter / 2;
         }
-    println(str(ploc_x) + "__" + str(ploc_y) + "::" + str(IState.diameter));
     IState.center_x = ploc_x;
     IState.center_y = ploc_y;
     checkInterferance(IState, thisYear, stateNames, current_state);
