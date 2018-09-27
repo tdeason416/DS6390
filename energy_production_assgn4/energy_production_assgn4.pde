@@ -1,12 +1,12 @@
 import java.util.Map;
 
-
-HashMap<String, String> colorMap = new HashMap<String, String>();
+HashMap<String, Integer> colorMap = new HashMap<String, Integer>();
 HashMap<String, State> thisYear = new HashMap<String, State>();
 StringList stateNames = new StringList();
 State IState;
 
-
+int keyloc_x = 3;
+int keyloc_y = 3;
 int year = 1990;
 int max_year = 2017;
 int current_state = 51;
@@ -22,15 +22,15 @@ float scaleFactor = 421600 / (max_volume);
 void setup() {
   size(1280, 720);
 
-  //DEFINE ORB COLORS
-  colorMap.put("coal", "020002");
-  colorMap.put("geothermal", "623E10");
-  colorMap.put("hydroelectric", "815714");
-  colorMap.put("natural_gas", "8B5B93");
-  colorMap.put("nuclear", "66F54D");
-  colorMap.put("biomass", "1E6323");
-  colorMap.put("solar", "F1F12D");
-  colorMap.put("wind", "67D4E8");
+  //DEFINE WEDGE COLORS
+  colorMap.put("coal", #000000);
+  colorMap.put("geothermal", #996633);
+  colorMap.put("hydroelectric", #0000ff);
+  colorMap.put("natural_gas", #ff80ff);
+  colorMap.put("nuclear", #ff6600);
+  colorMap.put("biomass", #006600);
+  colorMap.put("solar", #ffff4d);
+  colorMap.put("wind", #4dffff);
   
   //ADD STATE NAMES
   stateNames.append("HI");
@@ -52,8 +52,8 @@ void setup() {
   stateNames.append("AR");
   stateNames.append("TN");
   stateNames.append("NC");
+  stateNames.append("SC");
   stateNames.append("NE");
-  stateNames.append("MI");
   stateNames.append("KY");
   stateNames.append("WV");
   stateNames.append("VA");
@@ -72,10 +72,10 @@ void setup() {
   stateNames.append("WA");
   stateNames.append("MT");
   stateNames.append("ND");
-  stateNames.append("MI");
+  stateNames.append("MN");
   stateNames.append("WI");
   stateNames.append("NY");
-  stateNames.append("MA");
+  stateNames.append("MI");
   stateNames.append("NJ");
   stateNames.append("CT");
   stateNames.append("RI");
@@ -84,17 +84,24 @@ void setup() {
   stateNames.append("NH");
   stateNames.append("MA");
   stateNames.append("ME"); 
- 
- 
+
 }
 
 void draw(){
     if(current_state == 51){
-         if(sleep_timer < 300){
+         if(sleep_timer < 120){
             sleep_timer += 1;
         }
         else{
+          keyloc_y = 10;
           background(190);
+          for(String s: colorMap.keySet()){
+            fill(colorMap.get(s));
+            rect(keyloc_x - 2, keyloc_y - 2, 2, 2);
+            text(s, keyloc_x + 4, keyloc_y);
+            keyloc_y += 12;
+          }
+          fill(35);
           text(str(year), width/2, 10);
           thisYear = load_year(year, stateNames, colorMap, scaleFactor);
           sleep_timer = 0;
@@ -102,7 +109,10 @@ void draw(){
           ploc_x = 0;
           ploc_y = height - 20;
           year += 1;
+          if(year >= 2018){
+            year = 1990;
           }
+        }
     }
     else{
     IState = thisYear.get(stateNames.get(current_state));
