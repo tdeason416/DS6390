@@ -16,7 +16,7 @@ float ploc_y = 720;
 float pdia = 0;
 float ndia;
 float max_volume = 8187212010.0;
-float scaleFactor = 2073600.0 / (max_volume * 4.0/3.0); 
+float scaleFactor = 421600 / (max_volume); 
 
 
 void setup() {
@@ -38,16 +38,16 @@ void setup() {
   stateNames.append("NM");
   stateNames.append("TX");
   stateNames.append("LA");
-  stateNames.append("MI");
+  stateNames.append("MS");
   stateNames.append("AL");
   stateNames.append("FL");
   stateNames.append("GA");
-  stateNames.append("FL");
   stateNames.append("CA");
   stateNames.append("NV");
   stateNames.append("UT");
   stateNames.append("CO");
   stateNames.append("KS");
+  stateNames.append("MO");
   stateNames.append("OK");
   stateNames.append("AR");
   stateNames.append("TN");
@@ -74,23 +74,23 @@ void setup() {
   stateNames.append("ND");
   stateNames.append("MI");
   stateNames.append("WI");
-  stateNames.append("MI");
   stateNames.append("NY");
+  stateNames.append("MA");
   stateNames.append("NJ");
   stateNames.append("CT");
   stateNames.append("RI");
   stateNames.append("AK");
   stateNames.append("VT");
   stateNames.append("NH");
-  stateNames.append("MS");
+  stateNames.append("MA");
   stateNames.append("ME"); 
  
-  
+ 
 }
 
 void draw(){
     if(current_state == 51){
-         if(sleep_timer < 900){
+         if(sleep_timer < 300){
             sleep_timer += 1;
         }
         else{
@@ -100,31 +100,21 @@ void draw(){
           sleep_timer = 0;
           current_state = 0;
           ploc_x = 0;
-          ploc_y = height;
+          ploc_y = height - 20;
           year += 1;
           }
     }
     else{
     IState = thisYear.get(stateNames.get(current_state));
-    //println(IState.diameter);
     if(ploc_x + .5 * IState.diameter > width){
         ploc_y -= 100;
-        ploc_x = IState.diameter;
+        ploc_x = IState.diameter / 2;
         }
     IState.center_x = ploc_x;
     IState.center_y = ploc_y;
-    
     checkInterferance(IState, thisYear, stateNames, current_state);
-    
-    //IState.drawPie(ploc_x + .5 * IState.diameter, ploc_y - .5* IState.diameter);
     IState.drawPie();
-    
-    //println(str(ploc_x + .5 * IState.diameter)+ "," + str(ploc_y - .5* IState.diameter));
-    println(str(IState.center_x) + " -- " + str(IState.center_y));
-    
-    ploc_x += .5*IState.diameter;
-    
-    
+    ploc_x = IState.center_x + 10;
     current_state += 1;
     }
 }
