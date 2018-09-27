@@ -8,6 +8,10 @@ StringList stateNames = new StringList();
 int year = 1990;
 int max_year = 2017;
 int current_state = 51;
+float ploc_x = 0;
+float ploc_y = 0;
+float pdia = 0;
+float ndia;
 float max_volume = 8187212010.0;
 float scaleFactor = 2073600.0 / (max_volume * 4.0/3.0); 
 
@@ -85,10 +89,17 @@ void draw(){
     if(current_state == 51){
         thisYear = load_year(year, stateNames, colorMap, scaleFactor);
         current_state = 0;
+        ploc_x = 0;
+        ploc_y = 0;
         year += 1;
     }
+    ndia = thisYear.get(stateNames.get(current_state)).diameter;
+    ploc_x = ploc_x + pdia + ndia;
+    ploc_y = ploc_y + pdia + ndia;
+    thisYear.get(stateNames.get(current_state)).drawPie(ploc_x + pdia + ndia, ploc_y + pdia + ndia);
     
-    println(thisYear.get(stateNames.get(current_state)).sourcenames);
+    
+    
     current_state += 1;
     //println(colormap);
     //WA = new State(loadTable(year + "_WA.csv", "header").getRow(0), 1);
