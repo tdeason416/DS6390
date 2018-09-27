@@ -1,11 +1,11 @@
 class State{
 //Defines Parameters needes to define the energy generation of a state
-    //HashMap colormap;
+    
     String name;
     float total;
     //ArrayList<String> sourcenames = new ArrayList<String>();
     //ArrayList<String> colors = new ArrayList<String>();
-
+    HashMap<String, Integer> colorMap = new HashMap<String, Integer>();
     StringList sourcenames = new StringList();
     StringList colors = new StringList();
     FloatList sources = new FloatList();
@@ -26,6 +26,7 @@ class State{
         this.sourcenames.append("biomass");
         this.sourcenames.append("solar");
         this.sourcenames.append("wind");
+        this.colorMap = colorMap;
         //this.sourcenames.shuffle();
         for (int i = 0; i < this.sourcenames.size(); i+=1){
             this.sources.append(sqrt(row.getFloat(this.sourcenames.get(i)) * scaleFactor));
@@ -43,7 +44,7 @@ class State{
        float anglei = 0;
        for (int i= 0; i < this.sources.size(); i++){
            anglen = (this.sources.get(i) / this.sources.sum());
-           println(this.sourcenames.get(i) + " : " + str(anglen / 2 / PI));
+           //println(this.sourcenames.get(i) + " : " + str(anglen / 2 / PI));
            anglei += anglen; 
            this.angles.set(i, anglei);
            }
@@ -52,20 +53,21 @@ class State{
    void drawPie(){
         //this.center_x = center_x;
         //this.center_y = center_y;
-        println("\n\n" + this.name);
+        //println("\n\n" + this.name);
         float lastAngle = 0;
         for (int i = 0; i < this.angles.size(); i++){
             noStroke();
-            fill(unhex(this.colors.get(i)));
             //fill(this.angles.get(i) * 255);
-            println(this.sourcenames.get(i) + "__" + str(this.angles.get(i)));
+            //println(this.sourcenames.get(i) + "__" + str(this.sources.get(i) / this.sources.sum()));
+            //fill(unhex(this.colors.get(i)));
+            fill(this.colorMap.get(this.sourcenames.get(i)));
             arc(this.center_x, this.center_y, this.diameter / 2, this.diameter /2, 
                         lastAngle * 2*PI, lastAngle + (this.angles.get(i)) * 2*PI);
+
             lastAngle += this.angles.get(i);
             }
         noStroke();
-        //ellipse(center_x, center_y, this.diameter / 2, this.diameter / 2);
-        fill(0, 0, 0);
+        fill(#ff0000);        
         text(this.name, this.center_x, this.center_y);  
         }
 }
