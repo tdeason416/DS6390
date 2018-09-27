@@ -89,11 +89,9 @@ class State{
             lastAngle += this.angles.get(i);
             }
         noStroke();
-        fill(unhex(this.colors.get(1)));  
-        println(this.diameter);
         ellipse(center_x, center_y, this.diameter, this.diameter);
-        //fill(0, 0, 0);
-        //text(this.name, this.center_x, this.center_y);  
+        fill(0, 0, 0);
+        text(this.name, this.center_x, this.center_y);  
         }
        
    
