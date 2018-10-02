@@ -16,7 +16,7 @@ float ploc_y = 720;
 float pdia = 0;
 float ndia;
 float max_volume = 8187212010.0;
-float scaleFactor = 421600 / (max_volume); 
+float scaleFactor = 321600 / (max_volume); 
 
 
 void setup() {
