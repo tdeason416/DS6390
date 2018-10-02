@@ -43,7 +43,7 @@ class State{
        this.diameter = sqrt(this.total * scaleFactor) * 2;
        float anglei = 0;
        for (int i= 0; i < this.sources.size(); i++){
-           anglen = (this.sources.get(i) / this.sources.sum());
+           anglen = (this.sources.get(i) / (this.sources.sum()));
            //println(this.sourcenames.get(i) + " : " + str(anglen / 2 / PI));
            anglei += anglen; 
            this.angles.set(i, anglei);
