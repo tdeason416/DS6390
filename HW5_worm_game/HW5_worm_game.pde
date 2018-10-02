@@ -3,6 +3,8 @@ int[] original_pxls;
 int rSelect;
 int rSelectRow;
 int rSelectCol;
+int wormWidth = 20;
+int halfWormWidth = wormWidth / 2;
 
 
 void setup() {
@@ -16,16 +18,13 @@ void setup() {
       rSelectRow = int(rSelect / pixelWidth);
       rSelectCol = rSelect % pixelWidth;
       color c = color(255, 255, 255);
-      for(int j=-10; j < 10; j++){
-          for( int k= -10 ; k < 10; k++){
+      for(int j=-halfWormWidth; j < halfWormWidth; j++){
+          for( int k= -halfWormWidth ; k < halfWormWidth; k++){
               if((rSelectRow + j < pixelHeight) && (rSelectCol + k < pixelWidth) && (k > 0) && (j > 0)){
                   pixels[pixelWidth * (rSelectRow + j) + ( rSelectCol + k)] = c;
               }
           }  
-      }  
-      int[] poop = {1,2,3,4,5};
-      println(poop.length); 
-   
+      }
   }
   updatePixels();
   //image(img, 0, 0);
