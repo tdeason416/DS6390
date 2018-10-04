@@ -1,30 +1,101 @@
 class Snake{
 //Defines Parameters needes to define the energy generation of a state
     int numPts;
+    Table movements;
+    Table blemishes;
+    int nextWaypoint_x;
+    int nextWaypoint_y;
+    int speed_x;
+    int speed_y;
     int[] blemishes_x;
     int[] blemishes_y;
     int size;
     int snakeWidth;
     int current_x;
     int current_y;
+    int numPasses;
+    int rowNum;
     
 
-    void Snake(int size, int snakeWidth, int[] blemishes_x, int[] blemishes_y){
+    Snake(int size, int snakeWidth, int[] blemishes_x, int[] blemishes_y, int numPasses){
         this.size = size;
         this.snakeWidth = snakeWidth;
         this.numPts = blemishes_y.length;
-        this.blemishes_x= blemishes_x;
-        this.blemishes_y= blemishes_y;
-        this.current_y = min(blemishes_y);
-        this.current_x = 0;
-    }    
-    
-    void set_path(){
-        HashMap<Integer, Integer> thisPath = new HashMap<Integer, Integer>();
-        for(int i; i < blemishes_y.length; i++){
-            if(abs(i - blemishes_y[i]) < halfWormWidth){
-                thisPath.put(blemishes_x[i], i);
-            }    
+        this.numPasses = numPasses;
+        this.blemishes = new Table();
+        this.blemishes.addColumn("x");
+        this.blemishes.addColumn("y");
+        this.blemishes.addColumn("yGrp");
+        for(int i = 0; i < blemishes_x.length; i++){
+            TableRow newRow = blemishes.addRow();
+            newRow.setInt("x", blemishes_x[i]);
+            newRow.setInt("y", blemishes_y[i]);
+            newRow.setInt("yGrp", int(blemishes_y[i] / max(blemishes_y) * numPasses));
         }
+        this.blemishes.sort("x");
+        this.blemishes.sort("yGrp");
+        this.current_x = 0;
+        this.current_y = blemishes.getRow(0).getInt("y"); 
+        this.speed_x = 1;
+        this.speed_y = 0;
+        this.nextWaypoint_x = blemishes.getRow(0).getInt("x");
+        this.nextWaypoint_y = 0;
+        this.rowNum = 0;
+        this.movements = new Table();
+        this.movements.addColumn("x");
+        this.movements.addColumn("y");
+        for( int i = 0; i < size; i += 1){
+            TableRow newRow = this.movements.addRow();
+            newRow.setInt("x", this.current_x);
+            newRow.setInt("y", this.current_y);
+        }
+    }
+    
+    void _drawSegment(TableRow n){
+          int cent_x = n.getInt("x");
+          int cent_y = n.getInt("y");
+          println(cent_x);
+          println(cent_y);
+          halfWormWidth = int(this.snakeWidth / 2);
+          for(int j = -halfWormWidth; j < halfWormWidth; j++){
+              for( int k = -halfWormWidth ; k < halfWormWidth; k++){
+                  if((cent_x + j < pixelHeight) && (cent_y + k < pixelWidth) && (k > 0) && (j > 0)){
+                      int c_base = pixels[pixelWidth * (cent_x + j) + ( cent_y + k)];
+                      float r = red(c_base);
+                      float g = green(c_base);
+                      float b = blue(c_base);
+                      pixels[pixelWidth * (cent_x + j) + ( cent_y + k)] = color(155- r, 255 - g, 255 -b);
+                  }
+              }
+          }
+    }
+    
+    void moveWorm(){
+        if(this.speed_x != 0){
+            this.current_x += this.speed_x;
+            if(this.current_x == this.nextWaypoint_x){
+                this.speed_x = 0;
+                this.speed_y = int((this.nextWaypoint_y - this.current_y) / abs(this.nextWaypoint_y - this.current_y)); 
+            }
+        }
+        else if(this.speed_y != 0){
+            this.current_y += this.speed_y;
+            if(this.current_y == this.nextWaypoint_y){
+                this.size += 1;
+                this.rowNum += 1;
+                this.nextWaypoint_x = this.blemishes.getRow(this.rowNum).getInt("x");
+                this.nextWaypoint_y = this.blemishes.getRow(this.rowNum).getInt("y");
+                this.speed_y = 0;
+                this.speed_x = int((this.nextWaypoint_x - this.current_x) / abs(this.nextWaypoint_x - this.current_x));
+            }
+        }
+        TableRow newRow = this.movements.addRow();
+        newRow.setInt("x", this.current_x);
+        newRow.setInt("y", this.current_x);
+        
+        for(int i=1 ; i < this.size; i += 1){
+          this._drawSegment(movements.getRow(movements.getRowCount() - i));
+        }
+  
     }
 }
