@@ -1,10 +1,12 @@
 PImage img;
-int[] original_pxls;
+int[] originalPxls;
 int rSelect;
-int rSelectRow;
-int rSelectCol;
-int wormWidth = 20;
+int[] blemishes_x = new int[20];
+int[] blemishes_y = new int[20];
+int wormWidth = 10;
 int halfWormWidth = wormWidth / 2;
+int[] basePixels;
+Snake iSnake;
 
 
 void setup() {
@@ -12,25 +14,31 @@ void setup() {
   img = loadImage("mona_lisa.jpg"); 
   image(img, 0, 0);
   loadPixels();
-  original_pxls = pixels;
+  originalPxls = pixels;
   for(int i = 0; i < 20; i++){
       rSelect = int(random(0, pixelWidth * pixelHeight));
-      rSelectRow = int(rSelect / pixelWidth);
-      rSelectCol = rSelect % pixelWidth;
+      //rSelectRow = int(rSelect / pixelWidth);
+      blemishes_x[i] = int(rSelect / pixelWidth);
+      //blemishes_x[i] = rSelectRow;
+      //rSelectCol = rSelect % pixelWidth;
+      blemishes_y[i] = rSelect % pixelWidth;
+      //blemishes_y[i] = rSelectCol;
       color c = color(255, 255, 255);
       for(int j=-halfWormWidth; j < halfWormWidth; j++){
           for( int k= -halfWormWidth ; k < halfWormWidth; k++){
-              if((rSelectRow + j < pixelHeight) && (rSelectCol + k < pixelWidth) && (k > 0) && (j > 0)){
-                  pixels[pixelWidth * (rSelectRow + j) + ( rSelectCol + k)] = c;
+              if((blemishes_y[i] + j < pixelHeight) && (blemishes_x[i] + k < pixelWidth) && (k > 0) && (j > 0)){
+                  pixels[pixelWidth * (blemishes_x[i] + j) + ( blemishes_y[i] + k)] =  c;
               }
           }  
       }
   }
   updatePixels();
-  //image(img, 0, 0);
-  //img = loadImage("mona_lisa.jpg"); 
+  basePixels = pixels;
+  iSnake =  new Snake(5, 10, blemishes_x, blemishes_y, wormWidth);
 }
 
-//void draw() {
-  
-//}
+void draw() {
+  pixels = basePixels;
+  iSnake.moveWorm();
+  updatePixels();
+}
