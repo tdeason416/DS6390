@@ -62,16 +62,16 @@ class Snake{
                       float r = red(c_base);
                       float g = green(c_base);
                       float b = blue(c_base);
-                      pixels[pixelWidth * (cent_y + j) + ( cent_x + k)] = color(155- r, 255 - g, 255 -b);
+                      pixels[pixelWidth * (cent_x + j) + ( cent_y + k)] = color(155- r, 255 - g, 255 -b);
                   }
               }
           }
     }
     
     void moveWorm(){
-        println(this.rowNum);
+        //println(this.rowNum);
         //println(this.speed_y);
-        println("\n");
+        //println("\n");
         
         if(this.speed_x != 0){
             this.current_x += this.speed_x;

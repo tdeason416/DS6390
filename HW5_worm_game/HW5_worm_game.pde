@@ -34,6 +34,8 @@ void setup() {
   }
   updatePixels();
   basePixels = pixels;
+  println(blemishes_x);
+  println(blemishes_y);
   iSnake =  new Snake(5, 10, blemishes_x, blemishes_y, wormWidth);
 }
 
