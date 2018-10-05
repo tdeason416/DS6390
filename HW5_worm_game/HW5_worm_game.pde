@@ -46,7 +46,7 @@ void setup() {
 }
 
 void draw() {
-  //pixels = basePixels;
+  pixels = basePixels;
   iSnake.moveWorm();
   updatePixels();
 }

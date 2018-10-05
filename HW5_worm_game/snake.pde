@@ -46,7 +46,7 @@ class Snake{
         this.movements = new Table();
         this.movements.addColumn("x");
         this.movements.addColumn("y");
-        for( int i = 0; i <= size; i += 1){
+        for( int i = 0; i <= size * 2 * snakeWidth ; i += 1){
             TableRow newRow = this.movements.addRow();
             newRow.setInt("x", this.current_x);
             newRow.setInt("y", this.current_y);
@@ -80,7 +80,8 @@ class Snake{
           for(int j = -halfWormWidth; j < halfWormWidth; j++){
               for( int k = -halfWormWidth ; k < halfWormWidth; k++){
                   if((cent_y + j < pixelHeight) && (cent_x + k < pixelWidth) && (k > 0) && (j > 0)){
-                      int c_base = pixels[pixelWidth * (cent_y + j) + ( cent_x + k)];
+                      //int c_base = pixels[pixelWidth * (cent_y + j) + ( cent_x + k)];
+                      int c_base = basePixels[pixelWidth * (cent_y + j) + ( cent_x + k)];
                       float r = red(c_base);
                       float g = green(c_base);
                       float b = blue(c_base);
@@ -134,7 +135,7 @@ class Snake{
         TableRow newRow = this.movements.addRow();
         newRow.setInt("x", this.current_x);
         newRow.setInt("y", this.current_y);
-        for(int i = 1 ; i <= this.size ; i += 1){
+        for(int i = 1 ; i <= int(this.size / 2) * 2 * this.snakeWidth * 2 ; i += snakeWidth){
           this._drawSegment(movements.getRow(movements.getRowCount() - i));
         }
   
