@@ -18,10 +18,10 @@ void setup() {
   for(int i = 0; i < 20; i++){
       rSelect = int(random(0, pixelWidth * pixelHeight));
       //rSelectRow = int(rSelect / pixelWidth);
-      blemishes_x[i] = int(rSelect / pixelWidth);
+      blemishes_y[i] = int(rSelect / pixelWidth);
       //blemishes_x[i] = rSelectRow;
       //rSelectCol = rSelect % pixelWidth;
-      blemishes_y[i] = rSelect % pixelWidth;
+      blemishes_x[i] = rSelect % pixelWidth;
       //blemishes_y[i] = rSelectCol;
       color c = color(255, 255, 255);
       for(int j=-halfWormWidth; j < halfWormWidth; j++){

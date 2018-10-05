@@ -39,12 +39,12 @@ class Snake{
         this.speed_x = 1;
         this.speed_y = 0;
         this.nextWaypoint_x = blemishes.getRow(0).getInt("x");
-        this.nextWaypoint_y = 0;
+        this.nextWaypoint_y = blemishes.getRow(0).getInt("y");
         this.rowNum = 0;
         this.movements = new Table();
         this.movements.addColumn("x");
         this.movements.addColumn("y");
-        for( int i = 0; i < size; i += 1){
+        for( int i = 0; i <= size; i += 1){
             TableRow newRow = this.movements.addRow();
             newRow.setInt("x", this.current_x);
             newRow.setInt("y", this.current_y);
@@ -54,8 +54,6 @@ class Snake{
     void _drawSegment(TableRow n){
           int cent_x = n.getInt("x");
           int cent_y = n.getInt("y");
-          println(cent_x);
-          println(cent_y);
           halfWormWidth = int(this.snakeWidth / 2);
           for(int j = -halfWormWidth; j < halfWormWidth; j++){
               for( int k = -halfWormWidth ; k < halfWormWidth; k++){
@@ -64,18 +62,27 @@ class Snake{
                       float r = red(c_base);
                       float g = green(c_base);
                       float b = blue(c_base);
-                      pixels[pixelWidth * (cent_x + j) + ( cent_y + k)] = color(155- r, 255 - g, 255 -b);
+                      pixels[pixelWidth * (cent_y + j) + ( cent_x + k)] = color(155- r, 255 - g, 255 -b);
                   }
               }
           }
     }
     
     void moveWorm(){
+        println(this.rowNum);
+        //println(this.speed_y);
+        println("\n");
+        
         if(this.speed_x != 0){
             this.current_x += this.speed_x;
             if(this.current_x == this.nextWaypoint_x){
-                this.speed_x = 0;
-                this.speed_y = int((this.nextWaypoint_y - this.current_y) / abs(this.nextWaypoint_y - this.current_y)); 
+                if(this.current_y < this.nextWaypoint_y){
+                    this.speed_y = 1;
+                }
+                else{
+                    this.speed_y = -1;
+                }
+                this.speed_x = 0; 
             }
         }
         else if(this.speed_y != 0){
@@ -86,14 +93,19 @@ class Snake{
                 this.nextWaypoint_x = this.blemishes.getRow(this.rowNum).getInt("x");
                 this.nextWaypoint_y = this.blemishes.getRow(this.rowNum).getInt("y");
                 this.speed_y = 0;
-                this.speed_x = int((this.nextWaypoint_x - this.current_x) / abs(this.nextWaypoint_x - this.current_x));
+                if(this.current_x < this.nextWaypoint_x){
+                    this.speed_x = 1;
+                }
+                else{
+                    this.speed_x = -1;
+                }
+                this.speed_y = 0; 
             }
         }
         TableRow newRow = this.movements.addRow();
         newRow.setInt("x", this.current_x);
-        newRow.setInt("y", this.current_x);
-        
-        for(int i=1 ; i < this.size; i += 1){
+        newRow.setInt("y", this.current_y);
+        for(int i = 1 ; i <= this.size ; i += 1){
           this._drawSegment(movements.getRow(movements.getRowCount() - i));
         }
   
