@@ -54,15 +54,19 @@ class Snake{
     }
     
     void _removeBlemish(){
-      println("Bitch is Gone");
       TableRow row = this.blemishes.getRow(this.rowNum);
       int x = row.getInt("x");
       int y = row.getInt("y");
-      halfWormWidth = int(this.snakeWidth / 2);
+      halfWormWidth = this.snakeWidth;
       for(int i = -halfWormWidth; i < halfWormWidth; i++){
               for( int j = -halfWormWidth ; j < halfWormWidth; j++){
                   if((x + i < pixelHeight) && (y + j < pixelWidth) && (i > 0) && (j > 0)){
-                  pixels[pixelWidth * (y + j) + ( x + i )] = originalPxls[pixelWidth * (y + j) + ( x + i )];
+                  int c_base = pixels[pixelWidth * (y + j) + ( x + i )];
+                  float r = red(c_base);
+                  float g = green(c_base);
+                  float b = blue(c_base);
+                  pixels[pixelWidth * (y + j) + ( x + i )] = color(255 - r, 255 - g, 255 -b);
+                  //pixels[pixelWidth * (y + j) + ( x + i )] = originalPxls[pixelWidth * (y + j) + ( x + i )];
                   }
               }
       }
@@ -72,7 +76,7 @@ class Snake{
     void _drawSegment(TableRow n){
           int cent_x = n.getInt("x");
           int cent_y = n.getInt("y");
-          halfWormWidth = int(this.snakeWidth / 2);
+          halfWormWidth = this.snakeWidth;
           for(int j = -halfWormWidth; j < halfWormWidth; j++){
               for( int k = -halfWormWidth ; k < halfWormWidth; k++){
                   if((cent_y + j < pixelHeight) && (cent_x + k < pixelWidth) && (k > 0) && (j > 0)){
@@ -80,7 +84,7 @@ class Snake{
                       float r = red(c_base);
                       float g = green(c_base);
                       float b = blue(c_base);
-                      pixels[pixelWidth * (cent_y + j) + ( cent_x + k)] = color(155- r, 255 - g, 255 -b);
+                      pixels[pixelWidth * (cent_y + j) + ( cent_x + k)] = color(255 - r, 255 - g, 255 -b);
                   }
               }
           }

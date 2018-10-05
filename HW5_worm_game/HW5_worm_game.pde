@@ -28,13 +28,17 @@ void setup() {
       for(int j=-halfWormWidth; j < halfWormWidth; j++){
           for( int k= -halfWormWidth ; k < halfWormWidth; k++){
               if((blemishes_y[i] + j < pixelHeight) && (blemishes_x[i] + k < pixelWidth) && (k > 0) && (j > 0)){
-                  pixels[pixelWidth * (blemishes_y[i] + j) + ( blemishes_x[i] + k)] =  c;
+                  //pixels[pixelWidth * (blemishes_y[i] + j) + ( blemishes_x[i] + k)] =  c;
+                  int c_base = pixels[pixelWidth * (blemishes_y[i] + j) + ( blemishes_x[i] + k)];
+                  float r = red(c_base);
+                  float g = green(c_base);
+                  float b = blue(c_base);
+                  pixels[pixelWidth * (blemishes_y[i] + j) + ( blemishes_x[i] + k)] = color(255 - r, 255 - g, 255 -b);
               }
           }  
       }
   }
   updatePixels();
-  arrayCopy(pixels, basePixels);
   basePixels = pixels;
   //println(blemishes_x);
   //println(blemishes_y);
