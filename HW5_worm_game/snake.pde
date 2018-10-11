@@ -103,7 +103,7 @@ class Snake{
         //print(" ");
         //print(this.nextWaypoint_y);
         if(timer == 0){
-            this.size += 1;
+            this.size += 2;
         }
         if(this.speed_x != 0){
             this.current_x += this.speed_x;
@@ -121,7 +121,8 @@ class Snake{
             this.current_y += this.speed_y;
             if(this.current_y == this.nextWaypoint_y){
                 this._removeBlemish();
-                this.timer = this.snakeWidth * 2;
+                //this.timer = this.snakeWidth * 2;
+                this.size += 1;
                 this.rowNum += 1;
                 this.nextWaypoint_x = this.blemishes.getRow(this.rowNum).getInt("x");
                 this.nextWaypoint_y = this.blemishes.getRow(this.rowNum).getInt("y");
