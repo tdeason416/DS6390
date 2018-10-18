@@ -84,7 +84,6 @@ void setup() {
   stateNames.append("NH");
   stateNames.append("MA");
   stateNames.append("ME"); 
-
 }
 
 void draw(){
