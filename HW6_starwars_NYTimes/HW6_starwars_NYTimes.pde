@@ -30,7 +30,7 @@ void setup() {
   /* Saving headline data to text file: Saving to file in case user not able
      to retrieve data.
   */
-  saveStrings("/data/NYTimesFile.txt", headline);
+  saveStrings("NYTimesFile.txt", headline);
 
   
   //  size(1200,600, P3D);
