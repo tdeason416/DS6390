@@ -5,7 +5,8 @@
 
   Sources:
   https://www.youtube.com/watch?v=fUkF-YLLXeg
-  http://api.nytimes.com/svc/search/v2/articlesearch.json?q=processing&sort=newest&api-key=65c45b90098443e382456171886f4259
+  http://api.nytimes.com/svc/search/v2/articlesearch.json?q=processing&sort=newest&api-key='YourKeyCode'
+  Note: The API query only returns the 10 most recent stories
 */
 
 String [] headline = new String[10];
@@ -15,9 +16,10 @@ float y =0;
 
 void setup() {
   /* The URL for the JSON data   
-  http://api.nytimes.com/svc/search/v2/articlesearch.json?q=processing&sort=newest&api-key=65c45b90098443e382456171886f4259
+  http://api.nytimes.com/svc/search/v2/articlesearch.json?q=processing&sort=newest&api-key='YourKey'
+  Note: The API query only returns the 10 most recent stories
   */
-  String apiKey = "65c45b90098443e382456171886f4259";
+  String apiKey = "Your_API_Key"; //https://developer.nytimes.com/
   String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
   String query = "?q=processing&sort=newest";
     
@@ -35,7 +37,14 @@ void setup() {
   
   //  size(1200,600, P3D);
   fullScreen(P3D);
-  // Loading headline data array from file and joining them together
+  /*  We decided to save the API results to a .txt file and read
+      the headlines from the file, just in case the live API call
+      did not work properly for some reason.
+      To avoid this step, just comment out the loadStrings line and 
+      change scrollTxt = join(healine, '\n');
+  */
+
+  //Loading headline data array from file and joining them together  
   String[] lines = loadStrings("NYTimesFile.txt");
   scrollTxt = join(lines,'\n');
   y = height/2;
@@ -53,7 +62,7 @@ void draw() {
   rotateX(PI/4);  // Rotating text along X axis (give illusion of tilting)
   
   // Creating text box
-  float w = width*0.7;
+  float w = width*0.65;
   text(scrollTxt,-w/2,y,w,height*12);
   
   y-=1.2;  // Scroll speed adjust
