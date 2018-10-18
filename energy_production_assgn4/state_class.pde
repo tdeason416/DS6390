@@ -10,6 +10,8 @@ class State{
     StringList colors = new StringList();
     FloatList sources = new FloatList();
     FloatList angles = new FloatList();
+    float speed_x;
+    float speed_y;
     float center_x;
     float center_y;
     float diameter;
@@ -34,6 +36,8 @@ class State{
             this.colors.append(colorMap.get(this.sourcenames.get(i)).toString());
             }
         //this.colormap = colormap;
+        this.speed_x = 0;
+        this.speed_y = 1;
         this.center_x = 0;
         this.center_y = 0;
         this.setAngles();
