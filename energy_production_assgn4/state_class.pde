@@ -10,6 +10,8 @@ class State{
     StringList colors = new StringList();
     FloatList sources = new FloatList();
     FloatList angles = new FloatList();
+    float speed_x;
+    float speed_y;
     float center_x;
     float center_y;
     float diameter;
@@ -33,7 +35,11 @@ class State{
             this.angles.append(0.0);
             this.colors.append(colorMap.get(this.sourcenames.get(i)).toString());
             }
+        ////Checking if data was loaded in correctly
+        //println(this.sources);
         //this.colormap = colormap;
+        this.speed_x = 0;
+        this.speed_y = 1;
         this.center_x = 0;
         this.center_y = 0;
 //        this.setAngles();
@@ -60,11 +66,10 @@ class State{
       // how much of each degree of the pie chart should each unit of data get
       // in other words distributes our total data over 360 deg in proportion
       float t = 0;
-      t=360/this.total;
-       println(this.sources.size()); 
+      t= 360.0 / this.sources.sum();
+       //println(this.sources.size()); 
       for (int i= 0; i < this.sources.size(); i++){
-         
-          // choose a fill
+        // choose a fill
         fill(this.colorMap.get(this.sourcenames.get(i)));
         noStroke();
              
@@ -76,11 +81,11 @@ class State{
         
         a1 += this.sources.get(i)*t;
         //a1 += this.sources.append(row.getFloat(this.sourcenames.get(i)) * scaleFactor);
+
+        ////print the angles for debuging purposes
+        //println(this.name, this.sources.get(i),this.total);
+        //println(a1+"  :  "+a2);
         
-        
-        //print the angles for debuging purposes
-        println(this.name, this.sources.get(i),this.total);
-        println(a1+"  :  "+a2);
         //draw the arc
         arc(this.center_x, this.center_y, this.diameter / 2, this.diameter / 2, radians(a2), radians(a1));
       }
