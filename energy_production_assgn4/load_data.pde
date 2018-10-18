@@ -1,6 +1,5 @@
 State ST;
 
-
 HashMap load_year(int year, StringList stateNames, HashMap colorMap, float scaleFactor){
     String iyear = str(year);
     HashMap<String, State> stateObjs = new HashMap<String, State>();
