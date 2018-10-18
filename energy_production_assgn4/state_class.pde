@@ -36,7 +36,7 @@ class State{
         //this.colormap = colormap;
         this.center_x = 0;
         this.center_y = 0;
-        this.setAngles();
+//        this.setAngles();
     }
        
    void setAngles(){
@@ -51,21 +51,39 @@ class State{
        }
    
    void drawPie(){
-        //this.center_x = center_x;
-        //this.center_y = center_y;
-        //println("\n\n" + this.name);
-        float lastAngle = 0;
-        for (int i = 0; i < this.angles.size(); i++){
-            noStroke();
-            //fill(this.angles.get(i) * 255);
-            //println(this.sourcenames.get(i) + "__" + str(this.sources.get(i) / this.sources.sum()));
-            //fill(unhex(this.colors.get(i)));
-            fill(this.colorMap.get(this.sourcenames.get(i)));
-            arc(this.center_x, this.center_y, this.diameter / 2, this.diameter /2, 
-                        lastAngle * 2*PI, lastAngle + (this.angles.get(i)) * 2*PI);
 
-            lastAngle += this.angles.get(i);
-            }
+     this.diameter = sqrt(this.total * scaleFactor) * 2;  
+      
+      //two angles for each segment
+      float a1=0, a2=0;
+          
+      // how much of each degree of the pie chart should each unit of data get
+      // in other words distributes our total data over 360 deg in proportion
+      float t = 0;
+      t=360/this.total;
+       println(this.sources.size()); 
+      for (int i= 0; i < this.sources.size(); i++){
+         
+          // choose a fill
+        fill(this.colorMap.get(this.sourcenames.get(i)));
+        noStroke();
+             
+        //put the last leading angle into a2
+        a2 = a1;
+         
+             //a1 addition not working properly
+        //update the current leading angle
+        
+        a1 += this.sources.get(i)*t;
+        //a1 += this.sources.append(row.getFloat(this.sourcenames.get(i)) * scaleFactor);
+        
+        
+        //print the angles for debuging purposes
+        println(this.name, this.sources.get(i),this.total);
+        println(a1+"  :  "+a2);
+        //draw the arc
+        arc(this.center_x, this.center_y, this.diameter / 2, this.diameter / 2, radians(a2), radians(a1));
+      }
         noStroke();
         fill(#ff0000);        
         text(this.name, this.center_x, this.center_y);  

@@ -122,7 +122,7 @@ void draw(){
         }
     IState.center_x = ploc_x;
     IState.center_y = ploc_y;
-    checkInterferance(IState, thisYear, stateNames, current_state);
+//    checkInterferance(IState, thisYear, stateNames, current_state);
     IState.drawPie();
     ploc_x = IState.center_x + 10;
     current_state += 1;
