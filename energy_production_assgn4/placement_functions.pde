@@ -1,3 +1,4 @@
+// IN THE OOP VERSION THIS TAB IS NOW OBSOLETE
 //void checkInterferance(State nextState, HashMap<String, State> stateMap, StringList stateNames, int latest){
 //    int i = 0;
 //    float dist;

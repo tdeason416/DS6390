@@ -8,19 +8,19 @@ class SleepTimer{
   }
   
   int getTime(){
-    return this.currentTime
+    return this.currentTime;
   }
   
   void incrementTime(){
-    this.currentTime += 1 
+    this.currentTime += 1;
   }
   
   boolean checkTimer(){
     if(this.currentTime < this.maxTime){
-      return false
+      return false;
     }
     else{
-      return true
+      return true;
     }
   }
   

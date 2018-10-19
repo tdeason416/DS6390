@@ -9,9 +9,10 @@ class StateChars{
   
   //
   StateChars(){
-    this.currentState = "ME";
+    this.currentState = "HI";
     
     //Map StateNames
+    this.stateNames.put(0, "HI");
     this.stateNames.put(1, "AZ");
     this.stateNames.put(2, "NM");
     this.stateNames.put(3, "TX");
@@ -52,9 +53,11 @@ class StateChars{
     this.stateNames.put(38, "ND");
     this.stateNames.put(39, "MN");
     this.stateNames.put(40, "WI");
+    this.stateNames.put(41, "NJ");
     this.stateNames.put(42, "NY");
     this.stateNames.put(43, "MI");
     this.stateNames.put(44, "CT");
+    this.stateNames.put(45, "RI");
     this.stateNames.put(46, "AK");
     this.stateNames.put(47, "MA");
     this.stateNames.put(48, "VT");
@@ -194,19 +197,23 @@ class StateChars{
   }
   
   State getState(String name){
-    return this.states.get(name)
+    return this.states.get(name);
   }
   
   String getNextState(){
     this.currentState = this.stateNames.get(this.order.get(currentState) + 1);
-    return this.currentState();
+    return this.currentState;
+  }
+  
+  String getCurrentState(){
+    return this.currentState;
   }
   
   //Other Methods
-  void LoadYear(int year){
+  void loadYear(int year){
     for(int i = 0; i < this.stateNames.size() ; i += 1){
-      TableRow rowi = loadTable(iyear + "_" + this.stateNames.get(i) + ".csv", "header").getRow(0);
-      ST = new State(rowi, colorMap, scaleFactor);
+      TableRow rowi = loadTable(str(year) + "_" + this.stateNames.get(i) + ".csv", "header").getRow(0);
+      State ST = new State(rowi, colorMap, scaleFactor);
       this.states.put(this.stateNames.get(i), ST);
     }
   }
