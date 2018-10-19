@@ -39,7 +39,7 @@ class State{
         //println(this.sources);
         //this.colormap = colormap;
         this.speed_x = 0;
-        this.speed_y = 1;
+        this.speed_y = 0;
         this.center_x = 0;
         this.center_y = 0;
 //        this.setAngles();

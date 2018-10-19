@@ -1,11 +1,15 @@
 class Floor{
+    //Vars
     HashMap<Integer, Integer> floorHeight = new HashMap<Integer, Integer>();
+    
+    //Constructor
     Floor(){
       for(int i=0; i < width; i++){
         this.floorHeight.put(i, 0); 
       }
     }
     
+    //InternalMethods
     void addtoFloor(State Istate){
       for(int i= floor(Istate.center_x - .5 *Istate.diameter); i < ceil(Istate.center_x + .5 * Istate.diameter ); i -= 1){
         //Set Floor Height to top of orb at each location
@@ -13,7 +17,15 @@ class Floor{
       }
     }
     
+    //External Methods
     void checkifFloor(State Istate){
+      //Check if State is fully within frame
+      if(floor(Istate.center_x - .5 * Istate.diameter) < 0){
+         Istate.center_x += floor(Istate.center_x - .5 * Istate.diameter);
+      }
+      else if(ceil(Istate.center_x + .5 * Istate.diameter) > width){
+        Istate.center_y -= width - ceil(Istate.center_x + .5 * Istate.diameter);
+      }
       float[] contact_x = new float[2];
       float[] contact_y = new float[2];
       int idx = 0;
@@ -26,13 +38,16 @@ class Floor{
             break;
           }
         }
-      }
+      }      
+      //Check For interferance in state
       if(idx == 0){
         Istate.speed_y = 1;
       }
       else if(idx == 1){
         if(int(Istate.center_x - contact_x[0]) == 0){
           Istate.speed_y = 0;
+          Istate.speed_x = 0;
+          return true
         }
         else if(Istate.center_x - contact_x[0] < 0){
           Istate.speed_x = -2;
@@ -45,6 +60,8 @@ class Floor{
         Istate.speed_y = 0;
         Istate.speed_x = 0;
         this.addtoFloor(Istate);
+        return true
       }
+  return false
   }
 }
