@@ -218,5 +218,15 @@ class StateChars{
     }
   }
   
-
+  void updateCenters(){
+    for(int i = 0; i < this.stateNames.size() ; i += 1){
+        this.states.get(this.stateNames.get(i)).center_x = this.dropLoc.get(this.stateNames.get(i));
+    }
+  }
+  
+  void drawAll(){
+    for(int i = 0; i < this.stateNames.size() ; i += 1){
+        this.states.get(this.stateNames.get(i)).drawPie();
+    }
+  }
 }
