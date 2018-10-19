@@ -18,7 +18,7 @@ class Floor{
     }
     
     //External Methods
-    void checkifFloor(State Istate){
+    boolean checkifFloor(State Istate){
       //Check if State is fully within frame
       if(floor(Istate.center_x - .5 * Istate.diameter) < 0){
          Istate.center_x += floor(Istate.center_x - .5 * Istate.diameter);
@@ -47,7 +47,7 @@ class Floor{
         if(int(Istate.center_x - contact_x[0]) == 0){
           Istate.speed_y = 0;
           Istate.speed_x = 0;
-          return true
+          return true;
         }
         else if(Istate.center_x - contact_x[0] < 0){
           Istate.speed_x = -2;
@@ -60,8 +60,8 @@ class Floor{
         Istate.speed_y = 0;
         Istate.speed_x = 0;
         this.addtoFloor(Istate);
-        return true
+        return true;
       }
-  return false
+  return false;
   }
 }
