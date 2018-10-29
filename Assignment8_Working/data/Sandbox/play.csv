@@ -1,0 +1,14 @@
+﻿#Label,Order,Size,Colour,x,y,Level0
+Regular Play,,48,,,,Game
+Free Kick,,10.5,,,,Game
+Throw-In,,8,,,,Game
+Goal Kick,,6,,,,Game
+Corner Kick,,4.25,,,,Game
+Injury,,4.25,,,,Nonsense
+Substitution,,3,,,,Game
+Goal Celebration,,3,,,,Nonsense
+Booking,,1,,,,Nonsense
+Dissent,,0.5,,,,Nonsense
+Penalty Kick,,0.5,,,,Game
+Video Review,,0.5,,,,Nonsense
+Other,,0.5,,,,Nonsense
