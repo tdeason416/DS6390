@@ -27,6 +27,7 @@ void setup() {
 
 
 void draw(){
+  //Check if all states have been placed
    if((stateChars.currentState == "ME") & (currentStates.size() == 0)){
        println("It's MAINE AGIAN");
        if(sleepTimer.checkTimer()){
