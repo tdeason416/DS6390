@@ -1,5 +1,5 @@
-// Menu for selection use button class
-// it can be display horizontal or vertical 
+// Menu for selection use button class; Horizontal / Vertical
+ 
 class Menu {
   float posx, posy;
   String plotTitle;
@@ -20,7 +20,6 @@ class Menu {
   
   Menu(String[] ctrlabels, float ctrh, float ctrw, color[] ctrcolors){
    this.ctrlabels = ctrlabels;
-   //this.ctrcolors = ctrcolors;
    this.ctrh = ctrh;
    this.ctrw = ctrw;
    this.ctrcolors = ctrcolors;
@@ -91,35 +90,29 @@ class Menu {
     controls[keeper-1].display();
     switch(keeper) {
           case (1):  // Life Expectancy Map
-            plotTitle = "Life Expectancy at Birth (years) - 2015";
-            wcMap(20, 60, tableData, 950, 475, 12, plotTitle); 
-            //AgeGraph.loadData("SquadsGroupAge.csv");
-            //AgeGraph.displayAll(70,610, color(#BB0104, 70), color(#2B8BDE));
-            //table1 = loadTable("SquadsGroupAge.csv", "header");
-            //buildTable.drawTable(20,760, table1, false);
             keeper = 1;
+            plotTitle = "Life Expectancy at Birth (years) - 2015";
+            wcMap(20, 60, tableData, 950, 475, 12, plotTitle, keeper); 
             break;
+
           case (2):  // Population Density Map
-            //drawGoalTime();
-            plotTitle = "Population Density (per sq km) - 2015";
-            wcMap(20, 60, tableData, 950, 475, 5, plotTitle);
             keeper = 2;
+            plotTitle = "Population Density (per sq km) - 2015";
+            wcMap(20, 60, tableData, 950, 475, 5, plotTitle, keeper);
             break;
+          
           case (3):  // GDP per capita Map
-            //marketValue.mvDraw(cName, barData);
-            plotTitle = "GDP Per Capita (USD$) - 2015";
-            wcMap(20, 60, tableData, 950, 475, 51, plotTitle);
             keeper = 3;
+            plotTitle = "GDP Per Capita (USD$) - 2015";
+            wcMap(20, 60, tableData, 950, 475, 51, plotTitle, keeper);
             break;
+          
           case (4):  // Infant Mortality Rate Map
+            keeper = 4;            
             plotTitle = "Mortality Rate, under 5 (per 1000 live births) - 2015";
-            wcMap(20, 60, tableData, 950, 475, 17, plotTitle);
-            //text("How is World Cup Game Time Allocated?", 400, 530);
-            //gTreeMap = loadImage("gameTMap.png");
-            //gTreeMap.resize(880, 440);
-            //image(gTreeMap, 60, 540);
-            keeper = 4;
+            wcMap(20, 60, tableData, 950, 475, 17, plotTitle, keeper);
             break;
+          
           default:
             keeper = 1;
             fill(0);

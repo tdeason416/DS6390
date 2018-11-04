@@ -26,14 +26,14 @@ class Button{
   void display() {
     fill(color(this.backcol));
     
-    stroke(120);
+    stroke(110);
     strokeWeight(2);
-    rect(this.pos.x, this.pos.y, this.bw, this.bh, 8); //round border
+    rect(this.pos.x, this.pos.y, this.bw, this.bh, 10); //round border
     textSize(16);
     fill(color(this.labelcolor));
     float wlabel= textWidth(this.label);
     textAlign(LEFT,CENTER);
-    text(this.label, this.pos.x+(this.bw-wlabel)/2, this.pos.y+15);       
+    text(this.label, this.pos.x+(this.bw-wlabel)/2, this.pos.y+13);       
   }
 
   // function to determine if the button is selected
