@@ -48,7 +48,7 @@ void draw(){
   // Display the menu - bottons in horizontal order
   optionMenu.build(300, 550, true);
   
-  if (mouseX > 300 && mouseX <860 && mouseY > 550 && mouseY<590 && mousePressed && mouseButton == LEFT){
+  if (mouseX > 300 && mouseX < 860 && mouseY > 550 && mouseY < 590 && mousePressed && mouseButton == LEFT){
     optionMenu.selectedButton();
   }
   else {

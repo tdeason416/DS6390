@@ -1,9 +1,7 @@
 //  Draws a choropleth map of contries.
-void wcMap(int xpos, int ypos, Table tableData, int sizew, int sizeh, int dataField, String plotTitle) {
+void wcMap(int xpos, int ypos, Table tableData, int sizew, int sizeh, int dataField, String plotTitle, int keeper) {
   GeoMap geoMap;
-  
-  color minColour = color(255, 0, 42);   // Light blue
-  color maxColour = color(0, 0, 255);    // Dark red.
+  ColourTable myCTable;
    
   // Read map data.
   geoMap = new GeoMap(xpos+10, ypos+10, sizew-20, sizeh-20, this);
@@ -15,18 +13,32 @@ void wcMap(int xpos, int ypos, Table tableData, int sizew, int sizeh, int dataFi
   float dataMin = 0;
   for (TableRow row : tableData.rows())
   {
-    dataMax = max(dataMax, row.getFloat(dataField)); //third column
+    dataMax = max(dataMax, row.getFloat(dataField)); //Selecting Applicable column
     dataMin = min(dataMin, row.getFloat(dataField));
     //println(dataMax,dataMin, row.getString(1),row.getFloat(dataField));
    
   }
+  
+  // Selecting map colour palette according to button selection
+  if (keeper == 1){
+    myCTable = ColourTable.getPresetColourTable(ColourTable.SPECTRAL,dataMin,dataMax);}
+  else if (keeper == 2){
+      myCTable = ColourTable.getPresetColourTable(ColourTable.YL_GN_BU,dataMin,dataMax);}
+    else if (keeper == 3){
+        myCTable = ColourTable.getPresetColourTable(ColourTable.RD_YL_GN,dataMin,dataMax);}
+      else{
+        myCTable = ColourTable.getPresetColourTable(ColourTable.REDS,dataMin,dataMax);}
+  
+  // Saving colour table to file for retrieval when drawing map  
+  ColourTable.writeFile(myCTable,createOutput("mapColors.ctb"));
+  
+  // Draw countries
   fill(#D7E4FA);
   noStroke();
   rect(xpos,ypos, sizew, sizeh);
-  stroke(255);
+  stroke(120);
   strokeWeight(0.5);
   
-  // Draw countries
   for (int id : geoMap.getFeatures().keySet())
   {
     String countryCode = geoMap.getAttributeTable().findRow(str(id),0).getString("ISO_A3");    
@@ -35,8 +47,8 @@ void wcMap(int xpos, int ypos, Table tableData, int sizew, int sizeh, int dataFi
  
     if (dataRow != null)       // Table row matches country code
     {
-      float countryColour = (dataRow.getFloat(dataField)-dataMin)/(dataMax-dataMin);
-      fill(lerpColor(minColour, maxColour, countryColour));
+      //Drawing country based on value of dataField and corresponding colourTable
+      fill(myCTable.findColour(dataRow.getFloat(dataField)));
     }
     else                   // No data found in table.
     {
@@ -45,14 +57,14 @@ void wcMap(int xpos, int ypos, Table tableData, int sizew, int sizeh, int dataFi
     geoMap.draw(id); // Draw country
   }
  
-  // Draw title text
+  // Drawing  Map Title Text
   fill(0);
   textAlign(CENTER, TOP);
   PFont myFont = createFont("NEW GOTHIC MT", 26);
   textFont(myFont);
-  //text(plotTitle, xpos+10, sizeh+ypos-25);
-  text(plotTitle, xpos+sizew/2, ypos-30);
-  // Query the country at the mouse position to display Country name
+  text(plotTitle, xpos+sizew/2, ypos-35);
+
+  // Query the country at the mouse position to display Country Name and Value during mouseover
   int id = geoMap.getID(mouseX, mouseY);
 
   if (id != -1)
@@ -63,20 +75,21 @@ void wcMap(int xpos, int ypos, Table tableData, int sizew, int sizeh, int dataFi
     // Since ISO_A3 country codes are the same between geo.Map and World Bank Database, it will be used as the unique ID
     String countryCodeMouse = geoMap.getAttributeTable().findRow(str(id),0).getString("ISO_A3");
     TableRow dataRowMouse = tableData.findRow(countryCodeMouse, 1);
-    float countryAge;
+    float countryValue;
     if (dataRowMouse == null){
-      countryAge = 0;
-    }
-    else
-    {countryAge = dataRowMouse.getFloat(dataField);
-  }
+      countryValue = 0;}
+    else{
+      countryValue = dataRowMouse.getFloat(dataField);}
     
-    // Displaying 'common' name of country in lieu of ISO designation
+    // Displaying country Name and Value during mouseover //
+    // Finding 'common' name of country in lieu of ISO designation
     String name = geoMap.getAttributeTable().findRow(str(id),0).getString("NAME");
-    String countryAgeText = String.format("%.2f", countryAge);    
+    
+    // Rounding countryValueText to 2 decimal places 'for display purposes only' 
+    String countryValueText = String.format("%.2f", countryValue);    
     fill(0);
     textSize(12);
     text(name, mouseX+8, mouseY-5);
-    text(countryAgeText, mouseX+8,mouseY+10);
+    text(countryValueText, mouseX+8,mouseY+10);
   }
 }
