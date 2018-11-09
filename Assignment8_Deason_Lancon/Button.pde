@@ -40,7 +40,9 @@ class Button{
   boolean isSelected() {
     if (mouseX > this.pos.x && mouseX < this.pos.x + bw && mouseY > this.pos.y && mouseY < this.pos.y + bh ) 
       return true;
-    else return false;
+    else{
+       return false;
+       }
   }
 
 }
