@@ -136,35 +136,6 @@ class Menu {
     controls[keeper-1].backcol = btncolors[3];
     controls[keeper-1].display();
     displayMap.displayCountryData();
-    // switch(keeper) {
-    //       case (1):  // Life Expectancy Map
-    //         keeper = 1;
 
-    //         plotTitle = "Life Expectancy at Birth (years) - 2015";
-    //         wcMap(20, 60, tableData, 950, 475, 12, plotTitle, keeper); 
-    //         break;
-
-    //       case (2):  // Population Density Map
-    //         keeper = 2;
-    //         plotTitle = "Population Density (per sq km) - 2015";
-    //         wcMap(20, 60, tableData, 950, 475, 5, plotTitle, keeper);
-    //         break;
-          
-    //       case (3):  // GDP per capita Map
-    //         keeper = 3;
-    //         plotTitle = "GDP Per Capita (USD$) - 2015";
-    //         wcMap(20, 60, tableData, 950, 475, 51, plotTitle, keeper);
-    //         break;
-          
-    //       case (4):  // Infant Mortality Rate Map
-    //         keeper = 4;            
-    //         plotTitle = "Mortality Rate, under 5 (per 1000 live births) - 2015";
-    //         wcMap(20, 60, tableData, 950, 475, 17, plotTitle, keeper);
-    //         break;
-          
-    //       default:
-    //         keeper = 1;
-    //         fill(0);
-    // }        
   }
 }

@@ -8,9 +8,8 @@ class Map{
 
   //Constructors
   Map(){
-    //Default Constructor
-  }
 
+  }
   Map(Data data, String plotTitle, ColourTable ctable){
     //Instatiate with existing Data Object
     this.myCTable = ctable;
@@ -18,6 +17,7 @@ class Map{
     this.plotTitle = plotTitle;
   }
 
+  //Methods
   void drawCountries(){
     fill(#D7E4FA);
     noStroke();
