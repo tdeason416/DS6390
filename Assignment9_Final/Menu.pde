@@ -72,6 +72,8 @@ class Menu {
             this.dataMin = min(this.dataMin, row.getFloat(dataColumn[this.keeper]));
    println("Data Min",this.dataMin);
         }
+    setColorTable();
+    saveColorTable();
     }
 
     void setColorTable(){
@@ -80,7 +82,7 @@ class Menu {
         this.myCTable = ColourTable.getPresetColourTable(ColourTable.SPECTRAL,dataMin,dataMax);
         }
         else if(this.keeper == 1){
-        this.myCTable = ColourTable.getPresetColourTable(ColourTable.RD_YL_GN,dataMin,dataMax);
+        this.myCTable = ColourTable.getPresetColourTable(ColourTable.YL_GN_BU,dataMin,dataMax);
         }
         else if(this.keeper == 2){
         this.myCTable = ColourTable.getPresetColourTable(ColourTable.RD_YL_GN,dataMin,dataMax);
@@ -115,21 +117,26 @@ class Menu {
           case ("Life Exp."):   
             this.keeper = 0;
       println("optionSelected Life Keeper",this.keeper); //Test
+            setColorScale();
             break;
           case ("Pop. Density"):
             this.keeper = 1;
       println("optionSelected Pop Keeper",this.keeper); //Test
+            setColorScale();
             break;
           case ("GDP per Capita"):
             this.keeper = 2;
       println("optionSelected GDP Keeper",this.keeper); //Test
+            setColorScale();
             break;
           case ("Mortality Rate"):
             this.keeper = 3;
        println("optionSelected Mort Keeper",this.keeper); //Test
+            setColorScale();
             break;
           default:
             this.keeper = 0;
+            setColorScale();
             fill(0);
     }
     displayMap =  new Map(data, this.buttonToName.get(optionSelected), this.myCTable, dataColumn[this.keeper]);

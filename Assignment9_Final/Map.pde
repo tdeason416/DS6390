@@ -69,20 +69,19 @@ class Map extends Chart{
       String countryCodeMouse = this.data.geoMap.getAttributeTable().findRow(str(countryID),0).getString("ISO_A3");
       TableRow dataRowMouse = tableData.findRow(countryCodeMouse, 1);
       float countryValue;
-      if(dataRowMouse == null){
+      if(dataRowMouse == null) {
         countryValue = 0;
       }
       else{
-        //countryValue = dataRowMouse.getFloat(this.data.dataField);
         countryValue = dataRowMouse.getFloat(dataField);
       }
       String countryValueText = String.format("%.2f", countryValue);    
       // Find human readable name of country in lieu of ISO designation
       String countryName = geoMap.getAttributeTable().findRow(str(countryID), 0).getString("NAME");
       fill(0);
-      textSize(12);
-      text(countryName, mouseX + 8, mouseY - 5);
-      text(countryValueText, mouseX + 8, mouseY + 10);
+      textSize(14);
+      text(countryName, mouseX + 18, mouseY - 5);
+      text(countryValueText, mouseX + 18, mouseY + 10);
     }
   }
 }

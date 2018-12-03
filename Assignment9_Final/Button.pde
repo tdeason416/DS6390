@@ -29,7 +29,7 @@ class Button{
     stroke(110);
     strokeWeight(2);
     rect(this.pos.x, this.pos.y, this.bw, this.bh, 10); //round border
-    textSize(16);
+    textSize(15);
     fill(color(this.labelcolor));
     float wlabel= textWidth(this.label);
     textAlign(LEFT,CENTER);
