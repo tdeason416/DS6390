@@ -15,8 +15,10 @@ int mapXPos = 30;
 int mapYPos = 70;
 int mapWidth = 930;
 int mapHeight = 455;
-int menuCentW = 30;
-int menuCentH = 140;
+int menuCentH = 30;
+int menuCentW = 140;
+int menuLoc_x = 210;
+int menuLoc_y = 540;
 
 
 Table tableData;
@@ -60,7 +62,7 @@ void setup(){
   //Load Data
   data = new Data(tableData, geoMap, mapXPos, mapYPos, mapWidth, mapHeight);
   // Create optionMenu 
-  optionMenu = new Menu(labels, menuCentW, menuCentH, btncolors, data, buttonToName, dataColumn);
+  optionMenu = new Menu(labels, menuCentH, menuCentW, btncolors, data, buttonToName, dataColumn);
   //println(optionMenu.data.tableData.getString(120, 1));
   //println(optionMenu.data.tableData.findRow("MWI", 1).getString(0));
 }
@@ -69,8 +71,8 @@ void draw(){
   background(bg);
   image(header, header.width/2, 2);
   // Display the menu - bottons in horizontal order
-  optionMenu.build(300, 550, true);
-  if (mouseX > 300 && mouseX < 860 && mouseY > 550 && mouseY < 590 && mousePressed && mouseButton == LEFT){
+  optionMenu.build(menuLoc_x, menuLoc_y,true);
+  if (mouseX > menuLoc_x && mouseX < (menuLoc_x + labels.length*menuCentW) && mouseY > menuLoc_y && mouseY < (menuLoc_y + menuCentH) && mousePressed && mouseButton == LEFT){
     optionMenu.selectedButton();
   }
   else {
