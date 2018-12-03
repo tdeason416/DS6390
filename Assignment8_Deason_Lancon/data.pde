@@ -23,5 +23,4 @@ class Data{
         this.geoMap.readFile("world");
         this.tableData = tableData;
     }
-
 }
