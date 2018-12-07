@@ -30,7 +30,7 @@ class BarChart extends Chart{
     this.data.tableData.sortReverse(this.dataField);
     this.gapWidth = 1;
     //this.rowWidth = (this.data.sizew / this.data.tableData.getRowCount()) -  gapWidth;
-    this.rowWidth = (this.numRows / this.data.tableData.getRowCount()) - gapWidth;
+    this.rowWidth = int((this.numRows / this.data.tableData.getRowCount()) - gapWidth);
     this.maxValue = this.findMaxValue();
   }
   
@@ -47,13 +47,15 @@ class BarChart extends Chart{
   }
   
   void drawBar(int locX, float value, color clr, String countryName){
-        noStroke();
+        int barHeight = int(value / this.maxVal) * this.data.sizeh;  
+        //noStroke();
         fill(clr);
         beginShape();
         int yPos = this.data.ypos + 100;
         vertex(int(locX), yPos);
+        vertex(int(locX), yPos + barHeight);
+        vertex(int(locX) + this.rowWidth, yPos + barHeight);
         vertex(int(locX) + this.rowWidth, yPos);
-        vertex(int(locX) + this.rowWidth, yPos - int(value));
         vertex(int(locX), yPos + value);
         endShape();
         //textSize(this.rowWidth);
@@ -67,7 +69,6 @@ class BarChart extends Chart{
 
   void drawCountries(){
         //background
-        
         fill(#D7E4FA);
         noStroke();
         rect(this.data.xpos, this.data.ypos, this.data.sizew, this.data.sizeh);
