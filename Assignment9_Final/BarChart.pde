@@ -47,18 +47,17 @@ class BarChart extends Chart{
   }
   
   void drawBar(int locX, float value, color clr, String countryName){
-        int barHeight = int(value / this.maxVal) * this.data.sizeh;  
+        int barHeight = int(value / this.maxValue) * this.data.sizeh;  
         //noStroke();
+        int yPos = this.data.ypos + this.data.sizeh;
         fill(clr);
         beginShape();
-        int yPos = this.data.ypos + 100;
         vertex(int(locX), yPos);
-        vertex(int(locX), yPos + barHeight);
-        vertex(int(locX) + this.rowWidth, yPos + barHeight);
+        vertex(int(locX), yPos - barHeight);
+        vertex(int(locX) + this.rowWidth, yPos - barHeight);
         vertex(int(locX) + this.rowWidth, yPos);
-        vertex(int(locX), yPos + value);
         endShape();
-        //textSize(this.rowWidth);
+        textSize(this.rowWidth);
         pushMatrix();
         translate(int(locX) + this.rowWidth/2, yPos);
         rotate(-PI/2);
@@ -77,6 +76,7 @@ class BarChart extends Chart{
         // Draw Country Data
         int currentPos = this.data.xpos + this.gapWidth * 4;
         for(int i = 0; i < numRows; i++){
+            println(currentPos);
             TableRow dataRow = this.data.tableData.getRow(i);
             String countryName = dataRow.getString(0);
         //for(String countryName : this.data.tableData.getStringColumn("Country Name")){
