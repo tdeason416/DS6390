@@ -12,13 +12,10 @@ class Menu {
   float dataMin;
   float minColor;
   float maxColor;
-  int[] dataColumn;
   Data data;
   ColourTable myCTable;
   int keeper;
-  //Map displayMap;
-  Boolean chartToggle;
-  HashMap<Boolean, Chart> displayChart;
+  Map displayMap;
  
   Menu(){
   }
@@ -37,19 +34,12 @@ class Menu {
    this.ctrcolors = ctrcolors;
    controls = new Button[ctrlabels.length];
    this.buttonToName = buttonToName;
-   this.keeper = 0;
-   this.dataColumn = dataColumn;
+  //   this.keeper = 0;
    this.setColorScale();
    this.setColorTable();
-   this.chartToggle = true;
-   this.displayChart = new HashMap<Boolean, Chart>();
-   this.displayChart.put(true, new Map(this.data, this.buttonToName.get("Life Exp."), this.myCTable, this.dataColumn[this.keeper]));
-   this.displayChart.put(false, new BarChart(data, this.buttonToName.get("Life Exp."), this.myCTable, this.dataColumn[this.keeper]));
-   this.displayChart.get(this.chartToggle).drawCountries();
-   this.displayChart.get(this.chartToggle).drawTitleText();
-   //this.displayMap = new Map(data, buttonToName.get("Life Exp."), this.myCTable, dataColumn[this.keeper]);
-   //this.displayMap.drawCountries();
-   //this.displayMap.drawTitleText();
+   this.displayMap = new Map(data, buttonToName.get("Life Exp."), this.myCTable, dataColumn[this.keeper]);
+   this.displayMap.drawCountries();
+   this.displayMap.drawTitleText();
   }
   
   // build function - display the menu in the defined x,y position and orientation (horizontal = true)
@@ -106,18 +96,6 @@ class Menu {
         ColourTable.writeFile(myCTable,createOutput("mapColors.ctb"));
   }
   
-  void switchToggle(Boolean value){
-    if(value == true){
-      this.chartToggle = true;
-    }
-    else{
-      this.chartToggle = false;
-    }
-   //this.displayChart.put(this.chartToggle, new Map(data, this.buttonToName.get("Life Exp."), this.myCTable, dataColumn[this.keeper]));
-   this.displayChart.get(this.chartToggle).drawCountries();
-   this.displayChart.get(this.chartToggle).drawTitleText();
-  }
-  
   // Function used to identified the selected button
   void selectedButton() {
     String optionSelected="";
@@ -161,23 +139,18 @@ class Menu {
             setColorScale();
             fill(0);
     }
-    if(this.chartToggle == true){
-    this.displayChart.put(this.chartToggle, new Map(data, this.buttonToName.get(optionSelected), this.myCTable, dataColumn[this.keeper]));
-    }
-    else{
-      this.displayChart.put(this.chartToggle, new BarChart(data, this.buttonToName.get(optionSelected), this.myCTable, dataColumn[this.keeper]));
-    }
-    this.displayChart.get(this.chartToggle).drawCountries();
-    this.displayChart.get(this.chartToggle).drawTitleText();
+    displayMap =  new Map(data, this.buttonToName.get(optionSelected), this.myCTable, dataColumn[this.keeper]);
+    displayMap.drawCountries();
+    displayMap.drawTitleText();
   } // selectedButton
   
   // Keep the selection of the button
   void keepButton(){   
-    this.displayChart.get(this.chartToggle).drawCountries();
-    this.displayChart.get(this.chartToggle).drawTitleText();
+    displayMap.drawCountries();
+    displayMap.drawTitleText();
     // keep selected button 
     controls[keeper].backcol = btncolors[3];
     controls[keeper].display();
-    this.displayChart.get(this.chartToggle).displayCountryData();  
+    displayMap.displayCountryData();  
   }
 }

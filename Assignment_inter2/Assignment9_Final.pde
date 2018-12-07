@@ -71,15 +71,6 @@ void draw(){
   background(bg);
   image(header, header.width/2, 2);
   // Display the menu - bottons in horizontal order
-  if(keyPressed){
-    if(key == 'm'){
-      optionMenu.switchToggle(true);
-    }
-    if(key == 'b'){
-      optionMenu.switchToggle(false);
-    }
-  }
-  
   optionMenu.build(menuLoc_x, menuLoc_y,true);
   if (mouseX > menuLoc_x && mouseX < (menuLoc_x + labels.length*menuCentW) && mouseY > menuLoc_y && mouseY < (menuLoc_y + menuCentH) && mousePressed && mouseButton == LEFT){
     optionMenu.selectedButton();
