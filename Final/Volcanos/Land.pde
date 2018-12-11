@@ -45,8 +45,10 @@ class Land{
       if(x > 0 && x < this.sizeX){
         for(int y = centY - 4; y <= centY + 4; y++){
           if(y > 0 && y < this.sizeY){
-            if(this.elev[x][y] < int((1+1)/(1 + tan(vulc.getAngle()) * sqrt((centX - x) * (centX - x) + ((centY - y) * (centY - y)))))){
-              this.elev[x][y] = int((1+1)/(1 + tan(vulc.getAngle()) * sqrt((centX - x) * (centX - x) + ((centY - y) * (centY - y)))));
+            //if(this.elev[x][y] < int((1+1)/(1 + tan(vulc.getAngle()) * sqrt((centX - x) * (centX - x) + ((centY - y) * (centY - y)))))){
+            //  this.elev[x][y] = int((1+1)/(1 + tan(vulc.getAngle()) * sqrt((centX - x) * (centX - x) + ((centY - y) * (centY - y)))));
+            if(this.elev[x][y] < int(tan(vulc.getAngle()) * sqrt((centX - x) * (centX - x) + ((centY - y) * (centY - y))))){
+              this.elev[x][y] = int(tan(vulc.getAngle()) * sqrt((centX - x) * (centX - x) + ((centY - y) * (centY - y))));
             }
           }
         }
