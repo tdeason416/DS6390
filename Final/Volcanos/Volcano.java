@@ -1,4 +1,7 @@
+import processing.core.*;
+
 class Volcano{
+  PApplet p;
   int locX;
   int locY;
   int ht;
@@ -11,22 +14,23 @@ class Volcano{
   Volcano(){
   }
   
-  Volcano(int locX, int locY){
+  Volcano(PApplet p, int locX, int locY){
+    this.p = p;
     this.locX = locX;
     this.locY = locY;
     //this.size = size;
     this.ht = 0;
     this.magma = 0;
-    this.angle = random(PI/10, PI/6);
-    this.eruptionFactor = random(0,1);
-    this.pressure = random(0,.1);
+    this.angle = p.random(p.PI/10, p.PI/6);
+    this.eruptionFactor = p.random(0,1);
+    this.pressure = p.random(0f,.1f);
   }
   
   // Common methods
   void addMagma(float newMagma){
     this.magma += newMagma;
-    this.ht = int(sqrt(this.magma * 3 * tan(this.angle)));    
-    this.pressure += random(0,.1) * this.eruptionFactor;  
+    this.ht = PApplet.parseInt(p.sqrt(this.magma * 3 * p.tan(this.angle)));    
+    this.pressure += p.random(0f,.1f) * this.eruptionFactor;  
   }
 
   //void erupt(){

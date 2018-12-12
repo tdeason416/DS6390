@@ -6,7 +6,7 @@ float increment = 0.03;
 float zoff = 0.0;  
 float zincrement = 0.01; 
 Magma Magma;
-//Land land;
+Land land;
 
 
 void setup(){
@@ -15,13 +15,13 @@ void setup(){
   val = new float[width/d][height/d];
   xSize = width/d;
   ySize = height/d;
-  Magma = new Magma(5000, 50, 100);
-  //land = new Land( 854/ 8, 480 /8);
+  Magma = new Magma(this, 5000, 50, 100);
+  land = new Land(this, 854/ 8, 480 /8);
 }
 
 
 void draw(){
-  background(0);
+  background(127);
   lights();
   //fill(153, 34, 91);
   //noStroke();
