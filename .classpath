@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Final/Volcanos_java/src"/>
+	<classpathentry kind="lib" path="Assignment8_Working/__MACOSX/geoMap/library/._geoMap.jar"/>
+	<classpathentry kind="lib" path="Assignment8_Working/__MACOSX/treeMappa/library/._treemappa.jar"/>
+	<classpathentry kind="lib" path="Assignment8_Working/code/geoMap.jar"/>
+	<classpathentry kind="lib" path="Assignment8_Working/code/treemappa.jar"/>
+	<classpathentry kind="lib" path="Assignment8_Working/treemappa/library/treemappa.jar"/>
+	<classpathentry kind="lib" path="HW_8/Assignment8/libraries/treemappa.jar"/>
+	<classpathentry kind="lib" path="HW_8/Assignment8/libraries/treemappa/library/treemappa.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

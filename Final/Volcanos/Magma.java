@@ -49,7 +49,7 @@ public class Magma{
    }
  }
  
- Magma(PApplet p,float volume, int numVolcanos, float peakFlow, int sizeX, int sizeY){
+ Magma(PApplet p, float volume, int numVolcanos, float peakFlow, int sizeX, int sizeY){
    this.p = p;
    this.land = new Land(p, sizeX, sizeY);
    this.volume = volume;
@@ -74,7 +74,9 @@ public class Magma{
    float flowAmt = p.abs(p.sin(this.p.PI * this.state)  * this.peakFlow);
    int choice = (int)(p.random(0, this.numVolcanos));
    this.volcanos.get(choice).addMagma(flowAmt);
-   this.probs[(int) (p.random(0,this.probs.length))] = choice;
+   for(int i=0; i < 200; i++){
+     this.probs[(int) (p.random(0,this.probs.length))] = choice;
+   }
    this.land.raiseLand(this.volcanos.get(choice));
  }
  

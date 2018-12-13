@@ -6,8 +6,6 @@ float increment = 0.03;
 float zoff = 0.0;  
 float zincrement = 0.01; 
 Magma Magma;
-//Land land;
-
 
 void setup(){
   //smooth();
@@ -15,7 +13,7 @@ void setup(){
   val = new float[width/d][height/d];
   xSize = width/d;
   ySize = height/d;
-  Magma = new Magma(this, 5000, 50, 100);
+  Magma = new Magma(this, 2000, 1000, 500);
   //land = new Land( 854/ 8, 480 /8);
 }
 
@@ -32,5 +30,4 @@ void draw(){
   rotateX(70); 
   Magma.flow();
   Magma.draw();
-
 }

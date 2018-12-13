@@ -51,12 +51,15 @@ class BarChart extends Chart{
         //noStroke();
         int yPos = this.data.ypos + this.data.sizeh;
         fill(clr);
+        pushMatrix();
+        translate(locX, yPos);
         beginShape();
-        vertex(int(locX), yPos);
-        vertex(int(locX), yPos - barHeight);
-        vertex(int(locX) + this.rowWidth, yPos - barHeight);
-        vertex(int(locX) + this.rowWidth, yPos);
+        vertex(0, 0);
+        vertex(0, 0 - barHeight);
+        vertex(0 + this.rowWidth, 0 - barHeight);
+        vertex(0 + this.rowWidth, 0);
         endShape();
+        popMatrix();
         textSize(this.rowWidth);
         pushMatrix();
         translate(int(locX) + this.rowWidth/2, yPos);
@@ -75,13 +78,12 @@ class BarChart extends Chart{
         // strokeWeight(0.5);
         // Draw Country Data
         int currentPos = this.data.xpos + this.gapWidth * 4;
-        for(int i = 0; i < numRows; i++){
-            println(currentPos);
+        for(int i = 0; i < this.numRows; i++){
             TableRow dataRow = this.data.tableData.getRow(i);
             String countryName = dataRow.getString(0);
         //for(String countryName : this.data.tableData.getStringColumn("Country Name")){
             //TableRow dataRow = this.data.tableData.findRow(countryName, 0);
-            //if(dataRow != null){
+            if(countryName.length() > 0){
                 float value = dataRow.getFloat(this.data.dataField);
                 color clr = this.myCTable.findColour(value);
                 this.drawBar(currentPos, value, clr, countryName);
@@ -89,7 +91,8 @@ class BarChart extends Chart{
                   this.mouseCountry.put(j, countryName);
                   }
               currentPos += this.rowWidth + this.gapWidth;
-            //}
+              println(currentPos);
+            }
             //else{                   
             //// No data found in table.
             //    //fill(#D1D3D1);
